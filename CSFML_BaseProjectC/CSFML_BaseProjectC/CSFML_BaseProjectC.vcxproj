@@ -128,14 +128,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\CSFML\CSFML-2.5.1-x64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CSFML\CSFML-2.5.1-x64\include;..\CSTL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\CSFML\CSFML-2.5.1-x64\lib\msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>csfml-audio.lib;csfml-graphics.lib;csfml-network.lib;csfml-system.lib;csfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\CSFML\CSFML-2.5.1-x64\lib\msvc;..\CSTL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>csfml-audio.lib;csfml-graphics.lib;csfml-network.lib;csfml-system.lib;csfml-window.lib;CSTL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bombe.c" />
     <ClCompile Include="dialogBox.c" />
     <ClCompile Include="editor.c" />
     <ClCompile Include="fontManager.c" />
@@ -167,6 +168,7 @@
     <ClCompile Include="gamepadx.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="map.c" />
+    <ClCompile Include="math.c" />
     <ClCompile Include="menu.c" />
     <ClCompile Include="options.c" />
     <ClCompile Include="pause.c" />
@@ -181,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\CSFML_DLL_Project\sfBaseDllProject\dirent.h" />
+    <ClInclude Include="bombe.h" />
     <ClInclude Include="dialogBox.h" />
     <ClInclude Include="editor.h" />
     <ClInclude Include="fontManager.h" />
@@ -188,6 +191,7 @@
     <ClInclude Include="gamepad.h" />
     <ClInclude Include="gamepadx.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="math.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="options.h" />
     <ClInclude Include="pause.h" />

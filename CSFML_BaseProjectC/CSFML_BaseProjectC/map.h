@@ -1,6 +1,7 @@
 #pragma once
 #include "tools.h"
 #include"windowManager.h"
+#include "player.h"
 
 #define TAILLE_MAPY 13
 #define TAILLE_MAPX 15
@@ -26,4 +27,4 @@ Map_struct mapTop[TAILLE_MAPY][TAILLE_MAPX];
 void initMap();
 void updateMap();
 void displayMap(Window* _window);
-
+sfBool isCollision(sfVector2f _pos, Direction _direction);

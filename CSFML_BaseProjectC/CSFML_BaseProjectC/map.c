@@ -106,3 +106,28 @@ void displayMap(Window* _window)
 		}
 	}
 }
+
+sfBool isCollision(sfVector2f _pos, Direction _direction)
+{
+	sfVector2i posMap = vector2i((int)_pos.x / TAILLE_BLOCK,(int) _pos.y / TAILLE_BLOCK);
+	switch (_direction)
+	{
+	case UP:
+		if (mapTop[posMap.y-1][posMap.x].isSolid)
+			return sfTrue;
+		break;
+	case DOWN:
+		if (mapTop[posMap.y + 1][posMap.x].isSolid)
+			return sfTrue;
+		break;
+	case LEFT:
+		if (mapTop[posMap.y][posMap.x - 1].isSolid)
+			return sfTrue;
+		break;
+	case RIGHT:
+		if (mapTop[posMap.y - 1][posMap.x + 1].isSolid)
+			return sfTrue;
+		break;
+	}
+	return sfFalse;
+}
