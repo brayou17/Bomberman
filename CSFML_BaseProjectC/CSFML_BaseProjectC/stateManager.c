@@ -8,7 +8,7 @@
 #include "dialogBox.h"
 #include "options.h"
 #include "viewManager.h"
-
+#include "editor.h"
 
 void stateInit(Window* _window)
 {
@@ -53,6 +53,10 @@ void stateInit(Window* _window)
 			sfThread_launch(loadingThread);
 			initPause(_window);
 			initOptions(_window);
+		}
+		if (state == EDITOR)
+		{
+			initEditor();
 		}
 		if (state == END)
 		{
@@ -113,6 +117,10 @@ void stateUpdate(Window* _window)
 				}	
 				else
 					updateGame(_window);
+			}
+			else if (state == EDITOR)
+			{
+				updateEditor(_window);
 			}
 			else if (state == END)
 			{
@@ -183,6 +191,10 @@ void stateDisplay(Window* _window)
 			{
 				dialogBoxDisplay(_window);
 			}
+		}
+		else if (state == EDITOR)
+		{
+			displayEditor(_window);
 		}
 		if (state == END)
 		{

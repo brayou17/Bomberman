@@ -228,3 +228,6 @@ void displayFrameRate(sfRenderWindow* _window, sfText* _text);
 //	Fonction screenshot
 //-----------------------------------------------------------
 void screenshot(sfRenderWindow* _window);
+
+
+sfVector2f getFloatMousePos(sfRenderWindow* _window);

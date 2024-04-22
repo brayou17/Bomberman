@@ -210,3 +210,10 @@ void screenshot(sfRenderWindow* _window)
 	sprintf(filename, "../Ressources/Screenshots/Screenshot-%s-%s.jpg", tmpd, tmph);
 	sfImage_saveToFile(screenshot, filename);
 }
+
+
+sfVector2f getFloatMousePos(sfRenderWindow* _window)
+{
+	sfVector2i mouuse = sfMouse_getPositionRenderWindow(_window);
+	return vector2f(mouuse.x, mouuse.y);
+}
