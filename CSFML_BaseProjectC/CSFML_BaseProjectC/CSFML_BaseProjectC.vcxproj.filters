@@ -99,6 +99,9 @@
     <ClCompile Include="explosion.c">
       <Filter>Fichiers sources\GAME</Filter>
     </ClCompile>
+    <ClCompile Include="bonus.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dialogBox.h">
@@ -165,6 +168,9 @@
       <Filter>Fichiers d%27en-tête\ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="explosion.h">
+      <Filter>Fichiers d%27en-tête\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="bonus.h">
       <Filter>Fichiers d%27en-tête\GAME</Filter>
     </ClInclude>
   </ItemGroup>
