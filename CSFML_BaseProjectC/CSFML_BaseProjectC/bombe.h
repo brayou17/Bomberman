@@ -6,6 +6,7 @@
 typedef struct {
 	sfVector2f pos;
 	sfFloatRect colRect;
+	sfBool canDead;
 	int numCase;
 	int idPlayer;
 	float time_dead;
