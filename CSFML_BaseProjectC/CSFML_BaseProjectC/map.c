@@ -1,4 +1,5 @@
 #include "map.h"
+#include "explosion.h"
 
 sfRectangleShape* rct_backGround;
 sfRectangleShape* rct_Block;
@@ -229,6 +230,8 @@ void explosionBombe(sfVector2f _pos,int _numCase)
 	int left = 0;
 	int right = 0;
 
+	addExplosion(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
+
 	for (int i = 1; i < _numCase+1; i++)
 	{
 		if (mapTop[posExplosion.y - i][posExplosion.x].id == BLOCK_WALL)
@@ -240,28 +243,41 @@ void explosionBombe(sfVector2f _pos,int _numCase)
 		if (mapTop[posExplosion.y][posExplosion.x + i].id == BLOCK_WALL)
 			right = 1;
 
+		if(mapTop[posExplosion.y - i][posExplosion.x].id == BLOCK_NOTHING_TOP  && up == 0)
+			addExplosion(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, (posExplosion.y - i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
+		if (mapTop[posExplosion.y + i][posExplosion.x].id == BLOCK_NOTHING_TOP && down == 0)
+			addExplosion(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, (posExplosion.y + i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
+		if (mapTop[posExplosion.y][posExplosion.x - i].id == BLOCK_NOTHING_TOP && left == 0)
+			addExplosion(vector2f((posExplosion.x - i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
+		if (mapTop[posExplosion.y][posExplosion.x + i].id == BLOCK_NOTHING_TOP && right == 0)
+			addExplosion(vector2f((posExplosion.x + i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
+
 		if (mapTop[posExplosion.y - i][posExplosion.x].id == BLOCK_BRICK && up !=1)
 		{
 			mapTop[posExplosion.y - i][posExplosion.x].id = BLOCK_NOTHING_TOP;
 			mapTop[posExplosion.y - i][posExplosion.x].isSolid = sfFalse;
+			addExplosion(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK/2.f, (posExplosion.y - i) * TAILLE_BLOCK + TAILLE_BLOCK/2.f));
 			up = 1;
 		}
 		if (mapTop[posExplosion.y + i][posExplosion.x].id == BLOCK_BRICK && down !=1)
 		{
 			mapTop[posExplosion.y + i][posExplosion.x].id = BLOCK_NOTHING_TOP;
 			mapTop[posExplosion.y + i][posExplosion.x].isSolid = sfFalse;
+			addExplosion(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, (posExplosion.y + i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
 			down = 1;
 		}
 		if (mapTop[posExplosion.y][posExplosion.x - i].id == BLOCK_BRICK && left != 1)
 		{
 			mapTop[posExplosion.y][posExplosion.x - i].id = BLOCK_NOTHING_TOP;
 			mapTop[posExplosion.y][posExplosion.x - i].isSolid = sfFalse;
+			addExplosion(vector2f( (posExplosion.x - i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
 			left = 1;
 		}
 		if (mapTop[posExplosion.y][posExplosion.x + i].id == BLOCK_BRICK && right !=1)
 		{
 			mapTop[posExplosion.y][posExplosion.x + i].id = BLOCK_NOTHING_TOP;
 			mapTop[posExplosion.y][posExplosion.x + i].isSolid = sfFalse;
+			addExplosion(vector2f((posExplosion.x + i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
 			right = 1;
 		}
 	}
