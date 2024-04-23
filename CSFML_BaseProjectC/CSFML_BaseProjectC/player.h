@@ -11,12 +11,15 @@ typedef enum {
 
 typedef struct {
 	sfVector2f pos;
-	sfVector2f nextPos;
 	sfVector2f vel;
+	sfVector2f speed;
 	sfColor color;
-	Direction direction;
 	int idControl;
-	sfBool canMove;
+	float timerUseBombe;
+	sfFloatRect colRect;
+
+	int numCaseBombe;
+	int numOfBombe;
 }Player_struct;
 
 Player_struct player[4];

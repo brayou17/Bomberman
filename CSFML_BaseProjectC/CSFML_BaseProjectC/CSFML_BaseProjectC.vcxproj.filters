@@ -96,6 +96,9 @@
     <ClCompile Include="math.c">
       <Filter>Fichiers sources\ENGINE</Filter>
     </ClCompile>
+    <ClCompile Include="explosion.c">
+      <Filter>Fichiers sources\GAME</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dialogBox.h">
@@ -160,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="math.h">
       <Filter>Fichiers d%27en-tête\ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="explosion.h">
+      <Filter>Fichiers d%27en-tête\GAME</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

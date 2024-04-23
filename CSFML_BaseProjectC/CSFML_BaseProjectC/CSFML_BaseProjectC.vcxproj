@@ -162,6 +162,7 @@
     <ClCompile Include="bombe.c" />
     <ClCompile Include="dialogBox.c" />
     <ClCompile Include="editor.c" />
+    <ClCompile Include="explosion.c" />
     <ClCompile Include="fontManager.c" />
     <ClCompile Include="game.c" />
     <ClCompile Include="gamepad.c" />
@@ -186,6 +187,7 @@
     <ClInclude Include="bombe.h" />
     <ClInclude Include="dialogBox.h" />
     <ClInclude Include="editor.h" />
+    <ClInclude Include="explosion.h" />
     <ClInclude Include="fontManager.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gamepad.h" />

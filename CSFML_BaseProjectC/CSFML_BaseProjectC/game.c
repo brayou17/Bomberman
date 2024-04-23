@@ -7,7 +7,7 @@
 #include "map.h"
 #include <Windows.h>
 #include "player.h"
-
+#include "bombe.h"
 
 void initGame(Window* _window)
 {
@@ -15,6 +15,7 @@ void initGame(Window* _window)
 
 	initMap();
 	initPlayer();
+	initBombe();
 	SetViewPosition(mainView, vector2f(960.f, 540.f));
 	
 	
@@ -30,11 +31,13 @@ void updateGame(Window* _window)
 {
 	updateMap();
 	updatePlayer();
+	updateBombe();
 }
 
 void displayGame(Window* _window)
 {
 	displayMap(_window);
+	displayBombe(_window);
 	displayPlayer(_window);
 
 }

@@ -28,3 +28,5 @@ void initMap();
 void updateMap();
 void displayMap(Window* _window);
 sfBool isCollision(sfVector2f _pos, Direction _direction);
+sfBool collision(sfFloatRect _sprite, Direction _direction, sfVector2f _vitesse);
+void explosionBombe(sfVector2f _pos, int _numCase);

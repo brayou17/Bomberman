@@ -38,9 +38,10 @@ void defaultMap()
 	fwrite(mapTop, sizeof(Map_struct), TAILLE_MAPY * TAILLE_MAPX, file);
 	fclose(file);
 }
-
+int countS();
 void initMap()
 {
+
 	rct_Block = sfRectangleShape_create();
 	sfRectangleShape_setSize(rct_Block, vector2f(TAILLE_BLOCK, TAILLE_BLOCK));
 
@@ -50,6 +51,7 @@ void initMap()
 	sfRectangleShape_setSize(rct_backGround, vector2f(TAILLE_MAPX * TAILLE_BLOCK, TAILLE_MAPY * TAILLE_BLOCK));
 	//defaultMap();
 	loadMap();
+	//printf("count %d\n", countS());
 }
 
 void updateMap()
@@ -107,27 +109,160 @@ void displayMap(Window* _window)
 	}
 }
 
-sfBool isCollision(sfVector2f _pos, Direction _direction)
+//sfBool isCollision(sfVector2f _pos, Direction _direction)
+//{
+//	sfVector2i posMap = vector2i((int)_pos.x / TAILLE_BLOCK,(int) _pos.y / TAILLE_BLOCK);
+//	switch (_direction)
+//	{
+//	case UP:
+//		if (mapTop[posMap.y][posMap.x].isSolid)
+//			return sfTrue;
+//		break;
+//	case DOWN:
+//		if (mapTop[posMap.y][posMap.x].isSolid)
+//			return sfTrue;
+//		break;
+//	case LEFT:
+//		if (mapTop[posMap.y][posMap.x].isSolid)
+//			return sfTrue;
+//		break;
+//	case RIGHT:
+//		if (mapTop[posMap.y][posMap.x].isSolid)
+//			return sfTrue;
+//		break;
+//	}
+//	return sfFalse;
+//}
+
+sfBool collision(sfFloatRect _sprite, Direction _direction, sfVector2f _vitesse)
 {
-	sfVector2i posMap = vector2i((int)_pos.x / TAILLE_BLOCK,(int) _pos.y / TAILLE_BLOCK);
+	// Gestions des collisions avec les murs
+
+
+	sfVector2i fpos;
+	sfVector2i fpos2;
+
 	switch (_direction)
 	{
+		// Gestions des déplacements du personnage en fonction de la direction
+
 	case UP:
-		if (mapTop[posMap.y-1][posMap.x].isSolid)
+		// Calcul des coordonnées de la case dans laquelle le personnage va se déplacer
+		fpos.y = (_sprite.top - 2 + _vitesse.y * getDeltaTime()) / TAILLE_BLOCK;
+		fpos.x = (_sprite.left + _vitesse.x * getDeltaTime()) / TAILLE_BLOCK;
+		fpos2.y = (_sprite.top - 2 + _vitesse.y * getDeltaTime()) / TAILLE_BLOCK;
+		fpos2.x = (_sprite.width + _sprite.left + _vitesse.x * getDeltaTime()) / TAILLE_BLOCK;
+
+		if (mapTop[fpos.y][fpos.x].isSolid || mapTop[fpos2.y][fpos2.x].isSolid)
+		{
 			return sfTrue;
+		}
+		else return sfFalse;
+
 		break;
 	case DOWN:
-		if (mapTop[posMap.y + 1][posMap.x].isSolid)
+		// Calcul des coordonnées de la case dans laquelle le personnage va se déplacer
+		fpos.y = (_sprite.top + _sprite.height + 2 + _vitesse.y * getDeltaTime()) / TAILLE_BLOCK;
+		fpos.x = (_sprite.left + _vitesse.x * getDeltaTime()) / TAILLE_BLOCK;
+		fpos2.y = (_sprite.top + _sprite.height + 2 + _vitesse.y * getDeltaTime()) / TAILLE_BLOCK;
+		fpos2.x = (_sprite.left + _sprite.width + _vitesse.x * getDeltaTime()) / TAILLE_BLOCK;
+
+		if (mapTop[fpos.y][fpos.x].isSolid || mapTop[fpos2.y][fpos2.x].isSolid)
+		{
 			return sfTrue;
-		break;
-	case LEFT:
-		if (mapTop[posMap.y][posMap.x - 1].isSolid)
-			return sfTrue;
+		}
+		else return sfFalse;
 		break;
 	case RIGHT:
-		if (mapTop[posMap.y - 1][posMap.x + 1].isSolid)
+		// Calcul des coordonnées de la case dans laquelle le personnage va se déplacer
+
+		fpos.y = (_sprite.top + 10 + _vitesse.y * getDeltaTime()) / TAILLE_BLOCK;
+		fpos.x = (_sprite.left + _sprite.width + 2 + _vitesse.x * getDeltaTime()) / TAILLE_BLOCK;
+		fpos2.y = (_sprite.top + _sprite.height + _vitesse.y * getDeltaTime()) / TAILLE_BLOCK;
+		fpos2.x = (_sprite.left + _sprite.width + 2 + _vitesse.x * getDeltaTime()) / TAILLE_BLOCK;
+
+		if (mapTop[fpos.y][fpos.x].isSolid || mapTop[fpos2.y][fpos2.x].isSolid)
+		{
 			return sfTrue;
+		}
+		else return sfFalse;
+
+		break;
+	case LEFT:
+		// Calcul des coordonnées de la case dans laquelle le personnage va se déplacer
+		fpos.y = (_sprite.top + _sprite.height + _vitesse.y * getDeltaTime()) / TAILLE_BLOCK;
+		fpos.x = (_sprite.left - 2 + _vitesse.x * getDeltaTime()) / TAILLE_BLOCK;
+		fpos2.y = (_sprite.top + 10 + _vitesse.y * getDeltaTime()) / TAILLE_BLOCK;
+		fpos2.x = (_sprite.left - 2 + _vitesse.x * getDeltaTime()) / TAILLE_BLOCK;
+
+		if (mapTop[fpos.y][fpos.x].isSolid || mapTop[fpos2.y][fpos2.x].isSolid)
+		{
+			return sfTrue;
+		}
+		else return sfFalse;
 		break;
 	}
-	return sfFalse;
+
+}
+
+
+int countS()
+{
+	int countSs = 0;
+	for (int j = 0; j < TAILLE_MAPY; j++)
+	{
+		for (int i = 0; i < TAILLE_MAPX; i++)
+		{
+			if (mapTop[j][i].isSolid)
+				countSs++;
+		}
+	}
+	return countSs;
+}
+
+void explosionBombe(sfVector2f _pos,int _numCase)
+{
+	sfVector2i posExplosion = vector2i(_pos.x / TAILLE_BLOCK, _pos.y / TAILLE_BLOCK);
+
+	int up = 0;
+	int down = 0;
+	int left = 0;
+	int right = 0;
+
+	for (int i = 1; i < _numCase+1; i++)
+	{
+		if (mapTop[posExplosion.y - i][posExplosion.x].id == BLOCK_WALL)
+			up = 1;
+		if (mapTop[posExplosion.y + i][posExplosion.x].id == BLOCK_WALL)
+			down = 1;
+		if (mapTop[posExplosion.y][posExplosion.x - i].id == BLOCK_WALL)
+			left = 1;
+		if (mapTop[posExplosion.y][posExplosion.x + i].id == BLOCK_WALL)
+			right = 1;
+
+		if (mapTop[posExplosion.y - i][posExplosion.x].id == BLOCK_BRICK && up !=1)
+		{
+			mapTop[posExplosion.y - i][posExplosion.x].id = BLOCK_NOTHING_TOP;
+			mapTop[posExplosion.y - i][posExplosion.x].isSolid = sfFalse;
+			up = 1;
+		}
+		if (mapTop[posExplosion.y + i][posExplosion.x].id == BLOCK_BRICK && down !=1)
+		{
+			mapTop[posExplosion.y + i][posExplosion.x].id = BLOCK_NOTHING_TOP;
+			mapTop[posExplosion.y + i][posExplosion.x].isSolid = sfFalse;
+			down = 1;
+		}
+		if (mapTop[posExplosion.y][posExplosion.x - i].id == BLOCK_BRICK && left != 1)
+		{
+			mapTop[posExplosion.y][posExplosion.x - i].id = BLOCK_NOTHING_TOP;
+			mapTop[posExplosion.y][posExplosion.x - i].isSolid = sfFalse;
+			left = 1;
+		}
+		if (mapTop[posExplosion.y][posExplosion.x + i].id == BLOCK_BRICK && right !=1)
+		{
+			mapTop[posExplosion.y][posExplosion.x + i].id = BLOCK_NOTHING_TOP;
+			mapTop[posExplosion.y][posExplosion.x + i].isSolid = sfFalse;
+			right = 1;
+		}
+	}
 }
