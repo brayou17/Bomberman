@@ -1,25 +1,32 @@
 #pragma once
 #include "tools.h"
+#include"windowManager.h"
+#include "player.h"
 
-enum TILETYPE{ SINGLE, ANIME };
-
-
-typedef struct tile tile;
-struct tile
-{
-	tile* pNext;
-	int tileSelected;
-	char layer;
-	sfVector2i pos;
-	enum TILETYPE type;
-	int frame;
-	float animTimer;
-	float timing;
-};
+#define TAILLE_MAPY 13
+#define TAILLE_MAPX 15
+#define TAILLE_BLOCK 64
 
 
-void setTile(int _tileSelected, char _layer, sfVector2i _pos);
-void addTile(tile* _Tile);
+typedef enum {
+	BLOCK_WALL = 3,
+	BLOCK_BRICK,
+	BLOCK_NOTHING_TOP,
+}Type_blockTop;
 
-void loadMap(char* _path);
-void saveMap(char* _path);
+typedef struct {
+	sfBool isSolid;
+	sfBool canBeDestroyed;
+	sfBool canUpdate;
+	sfColor color;
+	int id;
+}Map_struct;
+
+Map_struct mapTop[TAILLE_MAPY][TAILLE_MAPX];
+
+void initMap();
+void updateMap();
+void displayMap(Window* _window);
+sfBool isCollision(sfVector2f _pos, Direction _direction);
+sfBool collision(sfFloatRect _sprite, Direction _direction, sfVector2f _vitesse);
+void explosionBombe(sfVector2f _pos, int _numCase);

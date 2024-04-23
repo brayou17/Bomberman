@@ -81,6 +81,24 @@
     <ClCompile Include="fontManager.c">
       <Filter>Fichiers sources\ENGINE</Filter>
     </ClCompile>
+    <ClCompile Include="map.c">
+      <Filter>Fichiers sources\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="editor.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="player.c">
+      <Filter>Fichiers sources\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="bombe.c">
+      <Filter>Fichiers sources\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="math.c">
+      <Filter>Fichiers sources\ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="explosion.c">
+      <Filter>Fichiers sources\GAME</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dialogBox.h">
@@ -130,6 +148,24 @@
     </ClInclude>
     <ClInclude Include="fontManager.h">
       <Filter>Fichiers d%27en-tête\ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>Fichiers d%27en-tête\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="editor.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Fichiers d%27en-tête\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="bombe.h">
+      <Filter>Fichiers d%27en-tête\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>Fichiers d%27en-tête\ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="explosion.h">
+      <Filter>Fichiers d%27en-tête\GAME</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
