@@ -26,6 +26,7 @@ void createBombe(sfVector2f _pos, int _idPlayer, int _numCase)
 	tmp.numCase = _numCase;
 	tmp.timer_dead = 2.f;
 	tmp.time_dead = 0.0f;
+	tmp.canDead = sfFalse;
 	tmp.colRect = FlRect(0.0f, 0.0f, 0.0f, 0.0f);
 
 	bombeList->push_back(&bombeList, &tmp);
@@ -55,11 +56,23 @@ void updateBombe()
 
 	for (int i = 0; i < bombeList->size(bombeList); i++)
 	{
-		GT_BOMBES->time_dead += delta;
-		if (GT_BOMBES->time_dead > GT_BOMBES->timer_dead)
+		if (GT_BOMBES->canDead == sfFalse)
 		{
-			explosionBombe(GT_BOMBES->pos, GT_BOMBES->numCase);
-			bombeList->erase(&bombeList, i);
+			GT_BOMBES->time_dead += delta;
+			if (GT_BOMBES->time_dead > GT_BOMBES->timer_dead)
+			{
+				explosionBombe(GT_BOMBES->pos, GT_BOMBES->numCase);
+				bombeList->erase(&bombeList, i);
+			}
+		}
+		else
+		{
+			GT_BOMBES->time_dead += delta;
+			if (GT_BOMBES->time_dead > 0.1f)
+			{
+				explosionBombe(GT_BOMBES->pos, GT_BOMBES->numCase);
+				bombeList->erase(&bombeList, i);
+			}
 		}
 	}
 
@@ -69,8 +82,8 @@ void updateBombe()
 		{
 			if (sfFloatRect_intersects(&GT_BOMBES->colRect, &GT_EXPLOSION->colRect, NULL))
 			{
-				explosionBombe(GT_BOMBES->pos, GT_BOMBES->numCase);
-				bombeList->erase(&bombeList, i);
+				GT_BOMBES->canDead = sfTrue;
+				GT_BOMBES->time_dead = 0.0f;
 				break;
 			}
 		}
