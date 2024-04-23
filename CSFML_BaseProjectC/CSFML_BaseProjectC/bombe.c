@@ -1,6 +1,7 @@
 #include "bombe.h"
 #include "map.h"
 #include "explosion.h"
+#include "player.h"
 
 #define GT_BOMBES STD_LIST_GETDATA(bombeList, Bombe_struct, i)
 #define GT_EXPLOSION STD_LIST_GETDATA(explosionList, Explosion_struct, x)

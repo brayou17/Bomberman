@@ -1,5 +1,6 @@
 #include "bonus.h"
 #include "player.h"
+#include "map.h"
 
 #define GT_BONUS STD_LIST_GETDATA(bonusList, Bonus_struct, y)
 
@@ -10,6 +11,7 @@ void initBonus()
 {
 	crl_bonus = sfCircleShape_create();
 	sfCircleShape_setPointCount(crl_bonus, 3);
+	sfCircleShape_setRadius(crl_bonus, TAILLE_BLOCK / 3.f);
 
 	bonusList = STD_LIST_CREATE(Bonus_struct, 0);
 }
@@ -36,10 +38,10 @@ void updateBonus()
 				switch (GT_BONUS->idBonus)
 				{
 				case BONUS_NBR_CASE:
-
+					player[i].numCaseBombe++;
 					break;
 				case BONUS_NBR_BOMBE:
-
+					player[i].numOfBombe++;
 					break;
 				case BONUS_SPEED:
 
@@ -51,6 +53,7 @@ void updateBonus()
 
 					break;
 				}
+				bonusList->erase(&bonusList, y);
 			}
 		}
 	}
@@ -64,22 +67,22 @@ void displayBonus(Window* _window)
 		{
 		case BONUS_NBR_CASE:
 			sfCircleShape_setOutlineColor(crl_bonus, sfBlue);
-			sfCircleShape_setOutlineThickness(crl_bonus, 0.0f);
+			sfCircleShape_setOutlineThickness(crl_bonus, 2.0f);
 			sfCircleShape_setFillColor(crl_bonus, sfColor_fromRGB(125,125,125));
 			break;
 		case BONUS_NBR_BOMBE:
-			sfCircleShape_setOutlineColor(crl_bonus, sfColor_fromRGB(200, 20, 0));
-			sfCircleShape_setOutlineThickness(crl_bonus, 0.0f);
+			sfCircleShape_setOutlineColor(crl_bonus, sfGreen);
+			sfCircleShape_setOutlineThickness(crl_bonus, 2.0f);
 			sfCircleShape_setFillColor(crl_bonus, sfColor_fromRGB(125, 125, 125));
 			break;
 		case BONUS_SPEED:
 			sfCircleShape_setOutlineColor(crl_bonus, sfRed);
-			sfCircleShape_setOutlineThickness(crl_bonus, 0.0f);
+			sfCircleShape_setOutlineThickness(crl_bonus, 2.0f);
 			sfCircleShape_setFillColor(crl_bonus, sfColor_fromRGB(125, 125, 125));
 			break;
 		case BONUS_PUSH_BOMBE:
 			sfCircleShape_setOutlineColor(crl_bonus, sfMagenta);
-			sfCircleShape_setOutlineThickness(crl_bonus, 0.0f);
+			sfCircleShape_setOutlineThickness(crl_bonus, 2.0f);
 			sfCircleShape_setFillColor(crl_bonus, sfColor_fromRGB(125, 125, 125));
 			break;
 		case BONUS_EVIL:
@@ -88,6 +91,7 @@ void displayBonus(Window* _window)
 			sfCircleShape_setFillColor(crl_bonus, sfRed);
 			break;
 		}
+
 		sfCircleShape_setPosition(crl_bonus, GT_BONUS->pos);
 		GT_BONUS->colrect = sfCircleShape_getGlobalBounds(crl_bonus);
 		sfRenderWindow_drawCircleShape(_window->renderWindow, crl_bonus, NULL);

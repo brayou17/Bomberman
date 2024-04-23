@@ -100,7 +100,7 @@
       <Filter>Fichiers sources\GAME</Filter>
     </ClCompile>
     <ClCompile Include="bonus.c">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\GAME</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

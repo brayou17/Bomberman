@@ -12,10 +12,11 @@ sfCircleShape* crl_player;
 sfVector2f playerPos;
 sfVector2f playerVel;
 
+sfRectangleShape* rct_colPlayer;
 
 void initPlayer()
 {
-
+	rct_colPlayer = sfRectangleShape_create();
 	for (int i = 0; i < 4; i++)
 	{
 		switch (i)
@@ -43,7 +44,7 @@ void initPlayer()
 		player[i].timerUseBombe = 0.0f;
 		player[i].colRect = FlRect(0.0f, 0.0f, 0.0f, 0.0f);
 		player[i].numOfBombe = 1;
-		player[i].numCaseBombe = 10;
+		player[i].numCaseBombe = 1;
 	}
 	crl_player = sfCircleShape_create();
 	sfCircleShape_setRadius(crl_player, TAILLE_BLOCK / 3.f);
@@ -135,7 +136,10 @@ void displayPlayer(Window* _window)
 		sfCircleShape_setPosition(crl_player, player[i].pos);
 		sfCircleShape_setFillColor(crl_player, player[i].color);
 		player[i].colRect = sfCircleShape_getGlobalBounds(crl_player);
+		//sfRectangleShape_setPosition(rct_colPlayer,vector2f(player[i].colRect.left, player[i].colRect.top) );
+		//sfRectangleShape_setSize(rct_colPlayer, vector2f(player[i].colRect.width, player[i].colRect.height));
 		sfRenderWindow_drawCircleShape(_window->renderWindow, crl_player, NULL);
+		//sfRenderWindow_drawRectangleShape(_window->renderWindow, rct_colPlayer, NULL);
 	}
 
 }

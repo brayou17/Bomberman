@@ -1,5 +1,6 @@
 #include "map.h"
 #include "explosion.h"
+#include "bonus.h"
 
 sfRectangleShape* rct_backGround;
 sfRectangleShape* rct_Block;
@@ -257,6 +258,9 @@ void explosionBombe(sfVector2f _pos,int _numCase)
 			mapTop[posExplosion.y - i][posExplosion.x].id = BLOCK_NOTHING_TOP;
 			mapTop[posExplosion.y - i][posExplosion.x].isSolid = sfFalse;
 			addExplosion(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK/2.f, (posExplosion.y - i) * TAILLE_BLOCK + TAILLE_BLOCK/2.f));
+			int rands = rand() % 9;
+			if (rands <= 4)
+				addBonus(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK / 4.f, (posExplosion.y - i) * TAILLE_BLOCK + TAILLE_BLOCK / 4.f), rands);
 			up = 1;
 		}
 		if (mapTop[posExplosion.y + i][posExplosion.x].id == BLOCK_BRICK && down !=1)
@@ -264,6 +268,9 @@ void explosionBombe(sfVector2f _pos,int _numCase)
 			mapTop[posExplosion.y + i][posExplosion.x].id = BLOCK_NOTHING_TOP;
 			mapTop[posExplosion.y + i][posExplosion.x].isSolid = sfFalse;
 			addExplosion(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, (posExplosion.y + i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
+			int rands = rand() % 9;
+			if (rands <= 4)
+				addBonus(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK / 4.f, (posExplosion.y + i) * TAILLE_BLOCK + TAILLE_BLOCK / 4.f), rands);
 			down = 1;
 		}
 		if (mapTop[posExplosion.y][posExplosion.x - i].id == BLOCK_BRICK && left != 1)
@@ -271,6 +278,9 @@ void explosionBombe(sfVector2f _pos,int _numCase)
 			mapTop[posExplosion.y][posExplosion.x - i].id = BLOCK_NOTHING_TOP;
 			mapTop[posExplosion.y][posExplosion.x - i].isSolid = sfFalse;
 			addExplosion(vector2f( (posExplosion.x - i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
+			int rands = rand() % 9;
+			if (rands <= 4)
+				addBonus(vector2f((posExplosion.x - i) * TAILLE_BLOCK + TAILLE_BLOCK / 4.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 4.f), rands);
 			left = 1;
 		}
 		if (mapTop[posExplosion.y][posExplosion.x + i].id == BLOCK_BRICK && right !=1)
@@ -278,6 +288,9 @@ void explosionBombe(sfVector2f _pos,int _numCase)
 			mapTop[posExplosion.y][posExplosion.x + i].id = BLOCK_NOTHING_TOP;
 			mapTop[posExplosion.y][posExplosion.x + i].isSolid = sfFalse;
 			addExplosion(vector2f((posExplosion.x + i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
+			int rands = rand() % 9;
+			if (rands <= 4)
+				addBonus(vector2f((posExplosion.x + i) * TAILLE_BLOCK + TAILLE_BLOCK / 4.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 4.f), rands);
 			right = 1;
 		}
 	}
