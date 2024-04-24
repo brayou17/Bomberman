@@ -15,6 +15,7 @@ typedef struct {
 	sfVector2f speed;
 	sfColor color;
 	int idControl;
+	int life;
 	float timerUseBombe;
 	sfFloatRect colRect;
 
@@ -29,6 +30,8 @@ typedef struct {
 
 	sfBool isUsingEvil;
 	float time_evil;
+
+	sfBool isTouched;
 
 }Player_struct;
 

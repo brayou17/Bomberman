@@ -35,9 +35,11 @@ void updateExplosion()
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			if (sfFloatRect_intersects(&GT_EXPLOSION->colRect, &player[i].colRect, NULL))
+			if (sfFloatRect_intersects(&GT_EXPLOSION->colRect, &player[i].colRect, NULL) && !player[i].isTouched  && player[i].life != 0)
 			{
 				setVibration(i, 1.0, 1.0);
+				player[i].life--;
+				player[i].isTouched = sfTrue;
 			}
 
 
@@ -46,6 +48,11 @@ void updateExplosion()
 			if (GT_EXPLOSION->radius > 20.0f)
 			{
 				explosionList->erase(&explosionList, x);
+				for (int i = 0; i < 4; i++)
+				{
+					if (player[i].isTouched)
+						player[i].isTouched = sfFalse;
+				}
 				setVibration(0, 0.0, 0.0);
 				setVibration(1, 0.0, 0.0);
 				setVibration(2, 0.0, 0.0);

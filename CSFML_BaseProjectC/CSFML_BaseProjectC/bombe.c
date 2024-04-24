@@ -170,14 +170,12 @@ void moveBombe(int _idPlayer, int _direction)
 	}
 }
 
-sfBool checkBombePlayer(int _idPlayer)
+sfBool checkBombePlayer2(sfVector2f _NextPos, sfVector2f _NextPos2)
 {
 	for (int i = 0; i < bombeList->size(bombeList); i++)
 	{
-
-		if (sfFloatRect_intersects(&player[_idPlayer].colRect, &GT_BOMBES->colRect, NULL) && GT_BOMBES->isNotColPlayer)
+		if ((sfFloatRect_contains(&GT_BOMBES->colRect, _NextPos.x, _NextPos.y) || sfFloatRect_contains(&GT_BOMBES->colRect, _NextPos2.x, _NextPos2.y)) && GT_BOMBES->isNotColPlayer)
 			return sfTrue;
-		
 	}
 	return sfFalse;
 }

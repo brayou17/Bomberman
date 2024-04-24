@@ -45,6 +45,8 @@ void initPlayer()
 		player[i].numOfBombe = 1;
 		player[i].colRect = FlRect(0.0f, 0.0f, 0.0f, 0.0f);
 		player[i].numCaseBombe = 1;
+		player[i].isTouched = sfFalse;
+		player[i].life = 1;
 	}
 	crl_player = sfCircleShape_create();
 	sfCircleShape_setRadius(crl_player, TAILLE_BLOCK / 3.f);
@@ -99,25 +101,25 @@ void updatePlayer()
 
 		if (player[i].canMove)
 			player[i].pos = addVectorsrf(player[i].pos,vector2f( player[i].vel.x * delta, player[i].vel.y * delta));*/
-
-		if (isButtonPressed(i, DPAD_DOWN) && !collision(player[i].colRect, DOWN, player[i].speed))
+		if (player[i].life <= 0) continue;
+		if (isButtonPressed(i, DPAD_DOWN) && !collision(player[i].colRect, DOWN, player[i].speed,i))
 		{
 			if (player[i].isUsingPushBombe)moveBombe(i,DOWN);
 			player[i].pos.y += player[i].speed.y * delta;
 		}
-		else if (isButtonPressed(i, DPAD_UP) && !collision(player[i].colRect, UP, player[i].speed))
+		else if (isButtonPressed(i, DPAD_UP) && !collision(player[i].colRect, UP, player[i].speed,i))
 		{
 			if (player[i].isUsingPushBombe)moveBombe(i, UP);
 			player[i].pos.y -= player[i].speed.y * delta;
 
 		}
-		else if (isButtonPressed(i, DPAD_LEFT) && !collision(player[i].colRect, LEFT, player[i].speed))
+		else if (isButtonPressed(i, DPAD_LEFT) && !collision(player[i].colRect, LEFT, player[i].speed,i))
 		{
 			if (player[i].isUsingPushBombe)moveBombe(i, LEFT);
 			player[i].pos.x -= player[i].speed.x * delta;
 
 		}
-		else if (isButtonPressed(i, DPAD_RIGHT) && !collision(player[i].colRect, RIGHT, player[i].speed))
+		else if (isButtonPressed(i, DPAD_RIGHT) && !collision(player[i].colRect, RIGHT, player[i].speed,i))
 		{
 			if (player[i].isUsingPushBombe)moveBombe(i, RIGHT);
 			player[i].pos.x += player[i].speed.x * delta;
@@ -172,6 +174,8 @@ void displayPlayer(Window* _window)
 {
 	for (int i = 0; i < 4; i++)
 	{
+		if (player[i].life <= 0) continue;
+
 		sfCircleShape_setPosition(crl_player, player[i].pos);
 		sfCircleShape_setFillColor(crl_player, player[i].color);
 		player[i].colRect = sfCircleShape_getGlobalBounds(crl_player);
