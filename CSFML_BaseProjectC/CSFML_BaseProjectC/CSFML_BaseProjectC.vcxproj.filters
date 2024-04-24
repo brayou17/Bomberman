@@ -102,6 +102,9 @@
     <ClCompile Include="bonus.c">
       <Filter>Fichiers sources\GAME</Filter>
     </ClCompile>
+    <ClCompile Include="endGame.c">
+      <Filter>Fichiers sources\GAME</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dialogBox.h">
@@ -171,6 +174,9 @@
       <Filter>Fichiers d%27en-tête\GAME</Filter>
     </ClInclude>
     <ClInclude Include="bonus.h">
+      <Filter>Fichiers d%27en-tête\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="endGame.h">
       <Filter>Fichiers d%27en-tête\GAME</Filter>
     </ClInclude>
   </ItemGroup>

@@ -47,6 +47,7 @@ void initPlayer()
 		player[i].numCaseBombe = 1;
 		player[i].isTouched = sfFalse;
 		player[i].life = 1;
+		player[i].numBombePlaced = 0;
 	}
 	crl_player = sfCircleShape_create();
 	sfCircleShape_setRadius(crl_player, TAILLE_BLOCK / 3.f);
@@ -58,49 +59,7 @@ void updatePlayer()
 	float delta = getDeltaTime();
 	for (int i = 0; i < 4; i++)
 	{
-		/*player[i].nextPos = addVectorsrf(player[i].pos, vector2f(player[i].vel.x * delta, player[i].vel.y * delta));
 
-		if (isButtonPressed(i, DPAD_DOWN))
-		{
-			player[i].direction = DOWN;
-			player[i].vel = vector2f(0.0f, SPEED_PLAYER);
-			if (!isCollision(player[i].pos, player[i].direction))
-			{
-				player[i].canMove = sfTrue;
-			}
-		}
-		else if (isButtonPressed(i, DPAD_UP))
-		{
-			player[i].direction = UP;
-			player[i].vel = vector2f(0.0f, -SPEED_PLAYER);
-			if (!isCollision(player[i].pos, player[i].direction))
-			{
-				player[i].canMove = sfTrue;
-			}
-		}
-		else if (isButtonPressed(i, DPAD_LEFT))
-		{
-			player[i].direction = LEFT;
-			player[i].vel = vector2f(-SPEED_PLAYER, 0.0f);
-			if (!isCollision(player[i].pos, player[i].direction))
-			{
-				player[i].canMove = sfTrue;
-			}
-		}
-		else if (isButtonPressed(i, DPAD_RIGHT))
-		{
-			player[i].direction = RIGHT;
-			player[i].vel = vector2f(SPEED_PLAYER, 0.0f);
-			if (!isCollision(player[i].pos, player[i].direction))
-			{
-				player[i].canMove = sfTrue;
-			}
-		}
-		else
-			player[i].canMove = sfFalse;
-
-		if (player[i].canMove)
-			player[i].pos = addVectorsrf(player[i].pos,vector2f( player[i].vel.x * delta, player[i].vel.y * delta));*/
 		if (player[i].life <= 0) continue;
 		if (isButtonPressed(i, DPAD_DOWN) && !collision(player[i].colRect, DOWN, player[i].speed,i))
 		{
@@ -127,9 +86,10 @@ void updatePlayer()
 		}
 
 		player[i].timerUseBombe += delta;
-		if (isButtonPressed(i, B) && player[i].timerUseBombe > 0.5f  && checkBombeId(i, player[i].numOfBombe)  && !player[i].isUsingEvil && checkPosBombe(vector2f(player[i].pos.x - ((int)player[i].pos.x % TAILLE_BLOCK) + TAILLE_BLOCK / 2.f, player[i].pos.y - ((int)player[i].pos.y % TAILLE_BLOCK) + TAILLE_BLOCK / 2.f)))
+		if (isButtonPressed(i, B) && player[i].timerUseBombe > 0.4f  && checkBombeId(i, player[i].numOfBombe)  && !player[i].isUsingEvil && checkPosBombe(vector2f(player[i].pos.x - ((int)player[i].pos.x % TAILLE_BLOCK) + TAILLE_BLOCK / 2.f, player[i].pos.y - ((int)player[i].pos.y % TAILLE_BLOCK) + TAILLE_BLOCK / 2.f)))
 		{
 			createBombe(vector2f(player[i].pos.x - ((int) player[i].pos.x %TAILLE_BLOCK) + TAILLE_BLOCK/2.f, player[i].pos.y - ((int)player[i].pos.y % TAILLE_BLOCK) + TAILLE_BLOCK / 2.f), i, player[i].numCaseBombe);
+			player[i].numBombePlaced++;
 			player[i].timerUseBombe = 0.0f;
 		}
 

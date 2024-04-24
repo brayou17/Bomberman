@@ -21,6 +21,7 @@ typedef struct {
 
 	int numCaseBombe;
 	int numOfBombe;
+	int numBombePlaced;
 
 	sfBool isUsingSpeed;
 	float time_speed;
