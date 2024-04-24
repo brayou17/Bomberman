@@ -93,6 +93,10 @@ void stateUpdate(Window* _window)
 {
 	if (w.state)
 	{
+		if (sfKeyboard_isKeyPressed(sfKeySpace))
+		{
+			changeState(_window,GAME);
+		}
 		if (!isDialogBox)
 		{
 			if (state == INTRO)

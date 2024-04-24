@@ -23,16 +23,23 @@ void addBonus(sfVector2f _pos, int _idBonus)
 	tmp.colrect = FlRect(0.0f, 0.0f, 0.0f, 0.0f);
 	tmp.idBonus = _idBonus;
 	tmp.pos = _pos;
+	tmp.canBeDestroyed = sfFalse;
+	tmp.time_beDestroyed = 0.0f;
 
 	bonusList->push_back(&bonusList, &tmp);
 }
 
 void updateBonus()
 {
+	float delta = getDeltaTime();
 	for (int i = 0; i < 4; i++)
 	{
 		for (int y = 0; y < bonusList->size(bonusList); y++)
 		{
+			GT_BONUS->time_beDestroyed += delta;
+			if (GT_BONUS->time_beDestroyed > 2.0f)
+				GT_BONUS->canBeDestroyed = sfTrue;
+
 			if (sfFloatRect_intersects(&player[i].colRect, &GT_BONUS->colrect, NULL))
 			{
 				switch (GT_BONUS->idBonus)

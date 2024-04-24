@@ -32,7 +32,6 @@ void createBombe(sfVector2f _pos, int _idPlayer, int _numCase)
 	tmp.colRect = FlRect(0.0f, 0.0f, 0.0f, 0.0f);
 	tmp.isNotColPlayer = sfFalse;
 	tmp.isTouched = sfFalse;
-	tmp.countBlock = 0;
 	tmp.direction = UP;
 
 	bombeList->push_back(&bombeList, &tmp);
@@ -45,22 +44,55 @@ void updateBombe()
 	{
 		if (GT_BOMBES->isTouched)
 		{
-			sfVector2f startpos = GT_BOMBES->pos;
-			switch (GT_BOMBES->direction)
-			{
-			case UP:
-				GT_BOMBES->pos = vec2f_lerp(GT_BOMB)
-				break;
-			case DOWN:
-
-				break;
-			case RIGHT:
-
-				break;
-			case LEFT:
-
-				break;
-			}
+				sfVector2i posMap = vector2i(GT_BOMBES->pos.x / TAILLE_BLOCK, GT_BOMBES->pos.y / TAILLE_BLOCK);
+				switch (GT_BOMBES->direction)
+				{
+				case UP:
+					if (!mapTop[posMap.y - 1][posMap.x].isSolid)
+					{
+						GT_BOMBES->pos = vector2f(GT_BOMBES->pos.x, GT_BOMBES->pos.y - 450.f *delta);
+					}
+					else
+					{
+						GT_BOMBES->pos.y -= TAILLE_BLOCK / 2.f;
+						GT_BOMBES->isTouched = sfFalse;
+					}
+					break;
+				case DOWN:
+					if (!mapTop[posMap.y + 1][posMap.x].isSolid)
+					{
+						GT_BOMBES->pos = vector2f(GT_BOMBES->pos.x, GT_BOMBES->pos.y + 450.f * delta);
+					}
+					else
+					{
+						GT_BOMBES->pos.y += TAILLE_BLOCK / 2.f;
+						GT_BOMBES->isTouched = sfFalse;
+					}
+					break;
+				case RIGHT:
+					if (!mapTop[posMap.y][posMap.x + 1].isSolid)
+					{
+						GT_BOMBES->pos = vector2f(GT_BOMBES->pos.x + 450.f * delta, GT_BOMBES->pos.y);
+					}
+					else
+					{
+						GT_BOMBES->pos.x += TAILLE_BLOCK / 2.f;
+						GT_BOMBES->isTouched = sfFalse;
+					}
+					break;
+				case LEFT:
+					if (!mapTop[posMap.y][posMap.x - 1].isSolid)
+					{
+						GT_BOMBES->pos = vector2f(GT_BOMBES->pos.x - 450.f * delta, GT_BOMBES->pos.y);
+					}
+					else
+					{
+						GT_BOMBES->pos.x -= TAILLE_BLOCK / 2.f;
+						GT_BOMBES->isTouched = sfFalse;
+					}
+					break;
+				}
+			
 		}
 
 		if (GT_BOMBES->canDead == sfFalse)
@@ -114,7 +146,9 @@ void displayBombe(Window* _window)
 					a++;
 			}
 			if (a == 4)
+			{
 				GT_BOMBES->isNotColPlayer = sfTrue;
+			}
 		}
 	}
 }
@@ -146,56 +180,10 @@ void moveBombe(int _idPlayer, int _direction)
 {
 	for (int i = 0; i < bombeList->size(bombeList); i++)
 	{
-		if (sfFloatRect_intersects(&player[_idPlayer].colRect, &GT_BOMBES->colRect, NULL) && GT_BOMBES->isNotColPlayer)
+		if (sfFloatRect_intersects(&player[_idPlayer].colRect, &GT_BOMBES->colRect, NULL) && GT_BOMBES->isNotColPlayer  && !GT_BOMBES->isTouched)
 		{
-			GT_BOMBES->countBlock = 0;
-			for (int x = 1; x < 11; x++)
-			{
-				sfVector2i posMap = vector2i(GT_BOMBES->pos.x / TAILLE_BLOCK, GT_BOMBES->pos.y / TAILLE_BLOCK);
-				switch (_direction)
-				{
-				case UP:
-					if (!mapTop[posMap.y - x][posMap.x].isSolid)
-						GT_BOMBES->countBlock++;
-					else
-					{
-						GT_BOMBES->isTouched = sfTrue;
-						GT_BOMBES->direction = UP;
-						break;
-					}
-					break;
-				case DOWN:
-					if (!mapTop[posMap.y + x][posMap.x].isSolid)
-						GT_BOMBES->countBlock++;
-					else
-					{
-						GT_BOMBES->isTouched = sfTrue;
-						GT_BOMBES->direction = DOWN;
-						break;
-					}
-					break;
-				case RIGHT:
-					if (!mapTop[posMap.y][posMap.x + x].isSolid)
-						GT_BOMBES->countBlock++;
-					else
-					{
-						GT_BOMBES->isTouched = sfTrue;
-						GT_BOMBES->direction = RIGHT;
-						break;
-					}
-					break;
-				case LEFT:
-					if (!mapTop[posMap.y][posMap.x - x].isSolid)
-						GT_BOMBES->countBlock++;
-					else
-					{
-						GT_BOMBES->isTouched = sfTrue;
-						GT_BOMBES->direction = LEFT;
-						break;
-					}
-					break;
-				}
-			}
+			GT_BOMBES->isTouched = sfTrue;
+			GT_BOMBES->direction = _direction;
 		}
 	}
 }
