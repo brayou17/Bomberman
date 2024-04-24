@@ -24,3 +24,4 @@ void displayBombe(Window* _window);
 sfBool checkBombeId(int _idPlayer, int _numOfBombe);
 sfBool checkPosBombe(sfVector2f _pos);
 void moveBombe(int _idPlayer, int _direction);
+sfBool checkBombePlayer(int _idPlayer);

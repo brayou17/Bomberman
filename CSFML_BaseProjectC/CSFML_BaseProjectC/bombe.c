@@ -103,7 +103,7 @@ void displayBombe(Window* _window)
 		GT_BOMBES->colRect = sfCircleShape_getGlobalBounds(crl_bombe);
 		sfRenderWindow_drawCircleShape(_window->renderWindow, crl_bombe, NULL);
 
-		if (!GT_BOMBES->isNotColPlayer)
+		if (!GT_BOMBES->isNotColPlayer)// TODO calcul à la main du rect
 		{
 			int a = 0;
 			for (int z = 0; z < 4; z++)
@@ -168,4 +168,16 @@ void moveBombe(int _idPlayer, int _direction)
 			}
 		}
 	}
+}
+
+sfBool checkBombePlayer(int _idPlayer)
+{
+	for (int i = 0; i < bombeList->size(bombeList); i++)
+	{
+
+		if (sfFloatRect_intersects(&player[_idPlayer].colRect, &GT_BOMBES->colRect, NULL) && GT_BOMBES->isNotColPlayer)
+			return sfTrue;
+		
+	}
+	return sfFalse;
 }
