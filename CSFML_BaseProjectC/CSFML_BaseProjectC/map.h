@@ -27,6 +27,5 @@ Map_struct mapTop[TAILLE_MAPY][TAILLE_MAPX];
 void initMap();
 void updateMap();
 void displayMap(Window* _window);
-sfBool isCollision(sfVector2f _pos, Direction _direction);
-sfBool collision(sfFloatRect _sprite, Direction _direction, sfVector2f _vitesse);
+sfBool collision(sfFloatRect _sprite, Direction _direction, sfVector2f _vitesse, int idControl);
 void explosionBombe(sfVector2f _pos, int _numCase);

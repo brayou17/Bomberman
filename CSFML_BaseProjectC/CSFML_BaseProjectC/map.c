@@ -1,5 +1,7 @@
 #include "map.h"
 #include "explosion.h"
+#include "bonus.h"
+#include "bombe.h"
 
 sfRectangleShape* rct_backGround;
 sfRectangleShape* rct_Block;
@@ -135,13 +137,17 @@ void displayMap(Window* _window)
 //	return sfFalse;
 //}
 
-sfBool collision(sfFloatRect _sprite, Direction _direction, sfVector2f _vitesse)
+sfBool collision(sfFloatRect _sprite, Direction _direction, sfVector2f _vitesse, int _idControl)
 {
 	// Gestions des collisions avec les murs
+	int result = 0;
 
 
-	sfVector2i fpos;
-	sfVector2i fpos2;
+	sfVector2i fpos = vector2i(0,0);
+	sfVector2i fpos2 = vector2i(0, 0);
+
+	sfVector2f nextPos = vector2f(0.0f, 0.0f);
+	sfVector2f nextPos2 = vector2f(0.0f, 0.0f);
 
 	switch (_direction)
 	{
@@ -154,11 +160,16 @@ sfBool collision(sfFloatRect _sprite, Direction _direction, sfVector2f _vitesse)
 		fpos2.y = (_sprite.top - 2 + _vitesse.y * getDeltaTime()) / TAILLE_BLOCK;
 		fpos2.x = (_sprite.width + _sprite.left + _vitesse.x * getDeltaTime()) / TAILLE_BLOCK;
 
+		nextPos = vector2f(_sprite.left + _vitesse.x * getDeltaTime(), _sprite.top - 2 + _vitesse.y * getDeltaTime());
+		nextPos2 = vector2f(_sprite.width + _sprite.left + _vitesse.x * getDeltaTime(), _sprite.top - 2 + _vitesse.y * getDeltaTime());
+
+		if (checkBombePlayer2(nextPos, nextPos2)  && !player[_idControl].isUsingPushBombe ) result = 1;
+
 		if (mapTop[fpos.y][fpos.x].isSolid || mapTop[fpos2.y][fpos2.x].isSolid)
 		{
-			return sfTrue;
+			result = 1;
 		}
-		else return sfFalse;
+
 
 		break;
 	case DOWN:
@@ -168,11 +179,15 @@ sfBool collision(sfFloatRect _sprite, Direction _direction, sfVector2f _vitesse)
 		fpos2.y = (_sprite.top + _sprite.height + 2 + _vitesse.y * getDeltaTime()) / TAILLE_BLOCK;
 		fpos2.x = (_sprite.left + _sprite.width + _vitesse.x * getDeltaTime()) / TAILLE_BLOCK;
 
+		nextPos = vector2f(_sprite.left + _vitesse.x * getDeltaTime(), _sprite.top + _sprite.height + 2 + _vitesse.y * getDeltaTime());
+		nextPos2 = vector2f(_sprite.left + _sprite.width + _vitesse.x * getDeltaTime(), _sprite.top + _sprite.height + 2 + _vitesse.y * getDeltaTime());
+
+		if (checkBombePlayer2(nextPos, nextPos2) && !player[_idControl].isUsingPushBombe) result = 1;
+
 		if (mapTop[fpos.y][fpos.x].isSolid || mapTop[fpos2.y][fpos2.x].isSolid)
 		{
-			return sfTrue;
+			result = 1;
 		}
-		else return sfFalse;
 		break;
 	case RIGHT:
 		// Calcul des coordonnées de la case dans laquelle le personnage va se déplacer
@@ -182,11 +197,15 @@ sfBool collision(sfFloatRect _sprite, Direction _direction, sfVector2f _vitesse)
 		fpos2.y = (_sprite.top + _sprite.height + _vitesse.y * getDeltaTime()) / TAILLE_BLOCK;
 		fpos2.x = (_sprite.left + _sprite.width + 2 + _vitesse.x * getDeltaTime()) / TAILLE_BLOCK;
 
+		nextPos = vector2f(_sprite.left + _sprite.width + 2 + _vitesse.x * getDeltaTime(), _sprite.top + 10 + _vitesse.y * getDeltaTime());
+		nextPos2 = vector2f(_sprite.left + _sprite.width + 2 + _vitesse.x * getDeltaTime(), _sprite.top + _sprite.height + _vitesse.y * getDeltaTime());
+
+		if (checkBombePlayer2(nextPos, nextPos2) && !player[_idControl].isUsingPushBombe) result = 1;
+
 		if (mapTop[fpos.y][fpos.x].isSolid || mapTop[fpos2.y][fpos2.x].isSolid)
 		{
-			return sfTrue;
+			result = 1;
 		}
-		else return sfFalse;
 
 		break;
 	case LEFT:
@@ -196,14 +215,21 @@ sfBool collision(sfFloatRect _sprite, Direction _direction, sfVector2f _vitesse)
 		fpos2.y = (_sprite.top + 10 + _vitesse.y * getDeltaTime()) / TAILLE_BLOCK;
 		fpos2.x = (_sprite.left - 2 + _vitesse.x * getDeltaTime()) / TAILLE_BLOCK;
 
+		nextPos = vector2f(_sprite.left - 2 + _vitesse.x * getDeltaTime(),_sprite.top + _sprite.height + _vitesse.y * getDeltaTime());
+		nextPos2 = vector2f(_sprite.left - 2 + _vitesse.x * getDeltaTime(), _sprite.top + 10 + _vitesse.y * getDeltaTime());
+
+		if (checkBombePlayer2(nextPos, nextPos2) && !player[_idControl].isUsingPushBombe) result = 1;
+
 		if (mapTop[fpos.y][fpos.x].isSolid || mapTop[fpos2.y][fpos2.x].isSolid)
 		{
-			return sfTrue;
+			result = 1;
 		}
-		else return sfFalse;
 		break;
 	}
-
+	if (result == 1) return sfTrue;
+	else
+		return sfFalse;
+	
 }
 
 
@@ -257,6 +283,9 @@ void explosionBombe(sfVector2f _pos,int _numCase)
 			mapTop[posExplosion.y - i][posExplosion.x].id = BLOCK_NOTHING_TOP;
 			mapTop[posExplosion.y - i][posExplosion.x].isSolid = sfFalse;
 			addExplosion(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK/2.f, (posExplosion.y - i) * TAILLE_BLOCK + TAILLE_BLOCK/2.f));
+			int rands = rand() % 9;
+			if (rands <= 4)
+				addBonus(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK / 4.f, (posExplosion.y - i) * TAILLE_BLOCK + TAILLE_BLOCK / 4.f), rands);
 			up = 1;
 		}
 		if (mapTop[posExplosion.y + i][posExplosion.x].id == BLOCK_BRICK && down !=1)
@@ -264,6 +293,9 @@ void explosionBombe(sfVector2f _pos,int _numCase)
 			mapTop[posExplosion.y + i][posExplosion.x].id = BLOCK_NOTHING_TOP;
 			mapTop[posExplosion.y + i][posExplosion.x].isSolid = sfFalse;
 			addExplosion(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, (posExplosion.y + i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
+			int rands = rand() % 9;
+			if (rands <= 4)
+				addBonus(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK / 4.f, (posExplosion.y + i) * TAILLE_BLOCK + TAILLE_BLOCK / 4.f), rands);
 			down = 1;
 		}
 		if (mapTop[posExplosion.y][posExplosion.x - i].id == BLOCK_BRICK && left != 1)
@@ -271,6 +303,9 @@ void explosionBombe(sfVector2f _pos,int _numCase)
 			mapTop[posExplosion.y][posExplosion.x - i].id = BLOCK_NOTHING_TOP;
 			mapTop[posExplosion.y][posExplosion.x - i].isSolid = sfFalse;
 			addExplosion(vector2f( (posExplosion.x - i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
+			int rands = rand() % 9;
+			if (rands <= 4)
+				addBonus(vector2f((posExplosion.x - i) * TAILLE_BLOCK + TAILLE_BLOCK / 4.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 4.f), rands);
 			left = 1;
 		}
 		if (mapTop[posExplosion.y][posExplosion.x + i].id == BLOCK_BRICK && right !=1)
@@ -278,6 +313,9 @@ void explosionBombe(sfVector2f _pos,int _numCase)
 			mapTop[posExplosion.y][posExplosion.x + i].id = BLOCK_NOTHING_TOP;
 			mapTop[posExplosion.y][posExplosion.x + i].isSolid = sfFalse;
 			addExplosion(vector2f((posExplosion.x + i) * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
+			int rands = rand() % 9;
+			if (rands <= 4)
+				addBonus(vector2f((posExplosion.x + i) * TAILLE_BLOCK + TAILLE_BLOCK / 4.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 4.f), rands);
 			right = 1;
 		}
 	}

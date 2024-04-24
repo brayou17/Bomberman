@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bombe.c" />
+    <ClCompile Include="bonus.c" />
     <ClCompile Include="dialogBox.c" />
     <ClCompile Include="editor.c" />
     <ClCompile Include="explosion.c" />
@@ -185,6 +186,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\CSFML_DLL_Project\sfBaseDllProject\dirent.h" />
     <ClInclude Include="bombe.h" />
+    <ClInclude Include="bonus.h" />
     <ClInclude Include="dialogBox.h" />
     <ClInclude Include="editor.h" />
     <ClInclude Include="explosion.h" />
