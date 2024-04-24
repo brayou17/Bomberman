@@ -12,6 +12,12 @@ typedef struct {
 	int idPlayer;
 	float time_dead;
 	float timer_dead;
+
+	sfBool isTouched;
+	sfVector2f oldPos;
+	int countBlock;
+	int direction;
+
 }Bombe_struct;
 
 stdList* bombeList;
