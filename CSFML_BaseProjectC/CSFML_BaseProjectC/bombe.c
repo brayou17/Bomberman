@@ -2,6 +2,7 @@
 #include "map.h"
 #include "explosion.h"
 #include "player.h"
+#include "math.h"
 
 #define GT_BOMBES STD_LIST_GETDATA(bombeList, Bombe_struct, i)
 #define GT_EXPLOSION STD_LIST_GETDATA(explosionList, Explosion_struct, x)
@@ -29,6 +30,7 @@ void createBombe(sfVector2f _pos, int _idPlayer, int _numCase)
 	tmp.time_dead = 0.0f;
 	tmp.canDead = sfFalse;
 	tmp.colRect = FlRect(0.0f, 0.0f, 0.0f, 0.0f);
+	tmp.isNotColPlayer = sfFalse;
 
 	bombeList->push_back(&bombeList, &tmp);
 }
@@ -57,6 +59,8 @@ void updateBombe()
 
 	for (int i = 0; i < bombeList->size(bombeList); i++)
 	{
+		
+
 		if (GT_BOMBES->canDead == sfFalse)
 		{
 			GT_BOMBES->time_dead += delta;
@@ -98,5 +102,70 @@ void displayBombe(Window* _window)
 		sfCircleShape_setPosition(crl_bombe, GT_BOMBES->pos);
 		GT_BOMBES->colRect = sfCircleShape_getGlobalBounds(crl_bombe);
 		sfRenderWindow_drawCircleShape(_window->renderWindow, crl_bombe, NULL);
+
+		if (!GT_BOMBES->isNotColPlayer)
+		{
+			int a = 0;
+			for (int z = 0; z < 4; z++)
+			{
+				if (!sfFloatRect_intersects(&GT_BOMBES->colRect, &player[z].colRect, NULL))
+					a++;
+			}
+			if (a == 4)
+				GT_BOMBES->isNotColPlayer = sfTrue;
+		}
+	}
+}
+
+
+sfBool checkBombeId(int _idPlayer, int _numOfBombe) // mettre tout dans une boucle existante ou mettre ++ quand player use et -- quand bombe id player explose
+{
+	int count = 0;
+	for (int i = 0; i < bombeList->size(bombeList); i++)
+	{
+		if (GT_BOMBES->idPlayer == _idPlayer)count++;
+	}
+	if (count >= _numOfBombe) return sfFalse;
+	else return sfTrue;
+}
+
+sfBool checkPosBombe(sfVector2f _pos)
+{
+	for (int i = 0; i < bombeList->size(bombeList); i++)
+	{
+		sfVector2f posB = GT_BOMBES->pos;
+		if (posB.x >= _pos.x - 10.f && posB.x <= _pos.x + 10.f  && posB.y >= _pos.y - 10.f && posB.y <= _pos.y + 10.f)
+			return sfFalse;
+	}
+	return sfTrue;
+}
+
+void moveBombe(int _idPlayer, int _direction)
+{
+	for (int i = 0; i < bombeList->size(bombeList); i++)
+	{
+		if (sfFloatRect_intersects(&player[_idPlayer].colRect, &GT_BOMBES->colRect, NULL) && GT_BOMBES->isNotColPlayer)
+		{
+			sfVector2i posMap = vector2i(GT_BOMBES->pos.x / TAILLE_BLOCK, GT_BOMBES->pos.y / TAILLE_BLOCK);
+			switch (_direction)
+			{
+			case UP:
+				if (!mapTop[posMap.y - 1][posMap.x].isSolid)
+					GT_BOMBES->pos.y -= TAILLE_BLOCK;
+				break;
+			case DOWN:
+				if (!mapTop[posMap.y + 1][posMap.x].isSolid)
+					GT_BOMBES->pos.y += TAILLE_BLOCK;
+				break;
+			case RIGHT:
+				if (!mapTop[posMap.y][posMap.x+1].isSolid)
+					GT_BOMBES->pos.x += TAILLE_BLOCK;
+				break;
+			case LEFT:
+				if (!mapTop[posMap.y][posMap.x-1].isSolid)
+					GT_BOMBES->pos.x -= TAILLE_BLOCK;
+				break;
+			}
+		}
 	}
 }

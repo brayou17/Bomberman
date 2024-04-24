@@ -42,8 +42,8 @@ void initPlayer()
 		player[i].idControl = i;
 		player[i].speed = vector2f(150.0f,150.0f);
 		player[i].timerUseBombe = 0.0f;
-		player[i].colRect = FlRect(0.0f, 0.0f, 0.0f, 0.0f);
 		player[i].numOfBombe = 1;
+		player[i].colRect = FlRect(0.0f, 0.0f, 0.0f, 0.0f);
 		player[i].numCaseBombe = 1;
 	}
 	crl_player = sfCircleShape_create();
@@ -102,29 +102,68 @@ void updatePlayer()
 
 		if (isButtonPressed(i, DPAD_DOWN) && !collision(player[i].colRect, DOWN, player[i].speed))
 		{
+			if (player[i].isUsingPushBombe)moveBombe(i,DOWN);
 			player[i].pos.y += player[i].speed.y * delta;
 		}
 		else if (isButtonPressed(i, DPAD_UP) && !collision(player[i].colRect, UP, player[i].speed))
 		{
+			if (player[i].isUsingPushBombe)moveBombe(i, UP);
 			player[i].pos.y -= player[i].speed.y * delta;
 
 		}
 		else if (isButtonPressed(i, DPAD_LEFT) && !collision(player[i].colRect, LEFT, player[i].speed))
 		{
+			if (player[i].isUsingPushBombe)moveBombe(i, LEFT);
 			player[i].pos.x -= player[i].speed.x * delta;
 
 		}
 		else if (isButtonPressed(i, DPAD_RIGHT) && !collision(player[i].colRect, RIGHT, player[i].speed))
 		{
+			if (player[i].isUsingPushBombe)moveBombe(i, RIGHT);
 			player[i].pos.x += player[i].speed.x * delta;
 
 		}
 
 		player[i].timerUseBombe += delta;
-		if (isButtonPressed(i, B) && player[i].timerUseBombe > 0.5f)
+		if (isButtonPressed(i, B) && player[i].timerUseBombe > 0.5f  && checkBombeId(i, player[i].numOfBombe)  && !player[i].isUsingEvil && checkPosBombe(vector2f(player[i].pos.x - ((int)player[i].pos.x % TAILLE_BLOCK) + TAILLE_BLOCK / 2.f, player[i].pos.y - ((int)player[i].pos.y % TAILLE_BLOCK) + TAILLE_BLOCK / 2.f)))
 		{
 			createBombe(vector2f(player[i].pos.x - ((int) player[i].pos.x %TAILLE_BLOCK) + TAILLE_BLOCK/2.f, player[i].pos.y - ((int)player[i].pos.y % TAILLE_BLOCK) + TAILLE_BLOCK / 2.f), i, player[i].numCaseBombe);
 			player[i].timerUseBombe = 0.0f;
+		}
+
+		if (player[i].isUsingSpeed)
+		{
+			player[i].time_speed += delta;
+			player[i].speed = vector2f(300.0f,300.0f);
+			if (player[i].time_speed > 5.f)
+			{
+				player[i].time_speed = 0.0f;
+				player[i].speed = vector2f(150.0f, 150.0f);
+				player[i].isUsingSpeed = sfFalse;
+			}
+		}
+
+		if (player[i].isUsingEvil)
+		{
+			player[i].time_evil += delta;
+			if(checkBombeId(i, player[i].numOfBombe)  && checkPosBombe(vector2f(player[i].pos.x - ((int)player[i].pos.x % TAILLE_BLOCK) + TAILLE_BLOCK / 2.f, player[i].pos.y - ((int)player[i].pos.y % TAILLE_BLOCK) + TAILLE_BLOCK / 2.f)))
+				createBombe(vector2f(player[i].pos.x - ((int)player[i].pos.x % TAILLE_BLOCK) + TAILLE_BLOCK / 2.f, player[i].pos.y - ((int)player[i].pos.y % TAILLE_BLOCK) + TAILLE_BLOCK / 2.f), i, player[i].numCaseBombe);
+
+			if (player[i].time_evil > 5.f)
+			{
+				player[i].time_evil = 0.0f;
+				player[i].isUsingEvil = sfFalse;
+			}
+		}
+
+		if (player[i].isUsingPushBombe)
+		{
+			player[i].time_pushBombe += delta;
+			if (player[i].time_pushBombe > 5.f)
+			{
+				player[i].time_pushBombe = 0.0f;
+				player[i].isUsingPushBombe = sfFalse;
+			}
 		}
 	}
 }
