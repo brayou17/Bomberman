@@ -29,6 +29,7 @@ static sfBool onePass = sfFalse;
 static sfBool isPaused = sfFalse;
 static sfBool isOption = sfFalse;
 static sfBool isEndGame = sfFalse;
+sfBool firstLoad2;
 
 sfThread* loadingThread;
 sfSprite* spLoading;
