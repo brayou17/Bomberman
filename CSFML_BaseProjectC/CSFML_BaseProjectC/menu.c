@@ -2,6 +2,7 @@
 #include "textureManager.h"
 #include "gamepad.h"
 #include "viewManager.h"
+#include "soundManager.h"
 
 sfSprite* spr_backGround;
 
@@ -18,6 +19,13 @@ int menuSelection;
 void initMenu(Window* _window)
 {
 	Texture_Onload(MENU);
+	Sound_Onload(MENU);
+
+	stopSound("Mgame");
+	stopSound("Mscore");
+	stopSound("Mfeu");
+	playSound("Mmenu", sfTrue);
+
 	spr_backGround = sfSprite_create();
 	sfSprite_setTexture(spr_backGround, GetTexture("menu"),sfTrue);
 

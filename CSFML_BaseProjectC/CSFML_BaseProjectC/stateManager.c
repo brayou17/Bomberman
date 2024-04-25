@@ -20,6 +20,7 @@ void stateInit(Window* _window)
 		firstLoad2 = sfFalse;
 		OnLoad("../Ressources/ressources.load");
 		Texture_Onload(ALL);
+		Sound_Onload(ALL);
 		spLoading = sfSprite_create();
 		sfSprite_setTexture(spLoading, GetTexture("loading"), sfTrue);
 		sfIntRect AnimRect = { 0, 0, 128, 128 };
@@ -27,8 +28,8 @@ void stateInit(Window* _window)
 		sfSprite_setPosition(spLoading, vector2f(mainView->PosView.x, mainView->PosView.y));
 		sfSprite_setTextureRect(spLoading, AnimRect);
 
-		setSoundVolume(50.0f);
-		setMusicVolume(50.0f);
+		setSoundVolume(10.0f);
+		setMusicVolume(10.0f);
 		w.state = sfTrue;
 		fontScore = sfFont_createFromFile("../Ressources/Fonts/full_Pack_2025.ttf");
 		

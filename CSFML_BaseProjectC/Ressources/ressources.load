@@ -1,17 +1,16 @@
 [all]
 animation loadingAnim ../Ressources/Textures/loading.anim
+music Mmenu ../Ressources/Musics/menu.ogg
+music Mgame ../Ressources/Musics/game.ogg
+soundfx SFXbombe ../Ressources/SoundsFX/bombe.ogg
+music Mfeu ../Ressources/Musics/Mfeu.ogg
+soundfx SFXfeu ../Ressources/SoundsFX/SFXfeu.ogg
+music Mscore ../Ressources/Musics/Mscore.ogg
+soundfx SFXscore ../Ressources/SoundsFX/SFXscore.ogg
 [end]
 [menu]
 single menu ../Ressources/Textures/Menu/menu.png
 [end]
 [game]
-single BG2 ../Ressources/Textures/BG2.png
-single BG1 ../Ressources/Textures/BG1.png
-single player ../Ressources/Textures/playerShip1_blue.png
-single enemy ../Ressources/Textures/enemyGreen1.png
-single enemy2 ../Ressources/Textures/enemyRed3.png
-single boss ../Ressources/Textures/ufoRed.png
-single tir ../Ressources/Textures/tir.png
-single tirEnemy ../Ressources/Textures/TirEnemy.png
-animation explosionAnim ../Ressources/Textures/explosion.anim
+
 [end]

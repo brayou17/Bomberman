@@ -2,6 +2,7 @@
 #include "player.h"
 #include "gamepadx.h"
 #include "bonus.h"
+#include "soundManager.h"
 #include "gamepad.h"
 
 #define GT_EXPLOSION STD_LIST_GETDATA(explosionList, Explosion_struct, x)
@@ -27,7 +28,7 @@ void addExplosion(sfVector2f _pos)
 	tmp.pos = _pos;
 	tmp.radius = 10.0f;
 	tmp.colRect = FlRect(0.0f, 0.0f, 0.0f, 0.0f);
-
+	playSound("SFXbombe", sfFalse);
 	explosionList->push_back(&explosionList, &tmp);
 }
 

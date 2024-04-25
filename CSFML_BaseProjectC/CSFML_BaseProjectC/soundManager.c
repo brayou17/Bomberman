@@ -154,7 +154,7 @@ void setMusicVolume(float _volume)
 	}
 }
 
-void playSound(char* _name)
+void playSound(char* _name, sfBool loop)
 {
 	Sound* tempSound = soundBegin;
 	while (tempSound != NULL)
@@ -167,6 +167,7 @@ void playSound(char* _name)
 			}
 			else if (tempSound->type == MUSIC)
 			{
+				sfMusic_setLoop(tempSound->music, loop);
 				sfMusic_play(tempSound->music);
 			}
 		}
