@@ -105,6 +105,12 @@
     <ClCompile Include="endGame.c">
       <Filter>Fichiers sources\GAME</Filter>
     </ClCompile>
+    <ClCompile Include="hud.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="createParticles.c">
+      <Filter>Fichiers sources\ENGINE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dialogBox.h">
@@ -178,6 +184,12 @@
     </ClInclude>
     <ClInclude Include="endGame.h">
       <Filter>Fichiers d%27en-tête\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="hud.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="createParticles.h">
+      <Filter>Fichiers d%27en-tête\ENGINE</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

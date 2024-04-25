@@ -12,7 +12,7 @@ enum {
     Count = 4       // Player 0-3
 };
 
-enum {
+typedef enum {
     DPAD_UP = 0x0001,
     DPAD_DOWN = 0x0002,
     DPAD_LEFT = 0x0004,
@@ -27,7 +27,7 @@ enum {
     B = 0x2000,
     X = 0x4000,
     Y = 0x8000,
-};
+}XPad;
 
 sfBool isConnected(t_joyNum joyNum);
 unsigned int getButtonCount(t_joyNum joyNum);
@@ -36,3 +36,4 @@ sfBool isAnyXBox360ControllerConnected();
 void getTriggers(t_joyNum joyNum, float* left, float* right);
 void getSticksPosition(t_joyNum joyNum, sfVector2f* left, sfVector2f* right);
 void setVibration(t_joyNum joyNum, float leftMotor, float rightMotor);
+sfVector2f getSticksPos(t_joyNum joyNum, XPad stick);

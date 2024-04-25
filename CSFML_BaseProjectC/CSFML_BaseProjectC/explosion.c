@@ -2,6 +2,7 @@
 #include "player.h"
 #include "gamepadx.h"
 #include "bonus.h"
+#include "gamepad.h"
 
 #define GT_EXPLOSION STD_LIST_GETDATA(explosionList, Explosion_struct, x)
 #define GT_BONUS STD_LIST_GETDATA(bonusList, Bonus_struct, y)
@@ -51,15 +52,25 @@ void updateExplosion()
 			if (GT_EXPLOSION->radius > 20.0f)
 			{
 				explosionList->erase(&explosionList, x);
-				for (int i = 0; i < 4; i++)
-				{
-					if (player[i].isTouched)
-						player[i].isTouched = sfFalse;
-				}
 				setVibration(0, 0.0f, 0.0f);
 				setVibration(1, 0.0f, 0.0f);
 				setVibration(2, 0.0f, 0.0f);
 				setVibration(3, 0.0f, 0.0f);
+				for (int i = 0; i < playernber; i++)
+				{
+					if (player[i].isTouched)
+						player[i].isTouched = sfFalse;
+					if (player[i].life <= 0)
+					{
+						if (!player[i].countDead)
+						{
+							player[i].countDead = sfTrue;
+							countDead++;
+						}
+						continue;
+					}
+				}
+
 				break;
 			}
 

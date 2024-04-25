@@ -4,4 +4,5 @@
 
 void initEndGame();
 void updateEndGame();
-void displayEndGame(Window* _window);
+void displayEndGame1(Window* _window);
+void displayEndGame2(Window* _window);

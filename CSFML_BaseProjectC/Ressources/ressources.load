@@ -2,7 +2,7 @@
 animation loadingAnim ../Ressources/Textures/loading.anim
 [end]
 [menu]
-single menu ../Ressources/Textures/Menu.png
+single menu ../Ressources/Textures/Menu/menu.png
 [end]
 [game]
 single BG2 ../Ressources/Textures/BG2.png
