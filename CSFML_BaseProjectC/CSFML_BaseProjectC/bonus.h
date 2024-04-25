@@ -16,6 +16,8 @@ typedef struct
 	sfVector2f pos;
 	sfFloatRect colrect;
 	int idBonus;
+	sfBool canBeDestroyed;
+	float time_beDestroyed;
 }Bonus_struct;
 
 stdList* bonusList;

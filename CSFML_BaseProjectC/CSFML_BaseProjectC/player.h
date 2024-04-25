@@ -21,6 +21,7 @@ typedef struct {
 
 	int numCaseBombe;
 	int numOfBombe;
+	int numBombePlaced;
 
 	sfBool isUsingSpeed;
 	float time_speed;
@@ -32,10 +33,12 @@ typedef struct {
 	float time_evil;
 
 	sfBool isTouched;
+	sfBool countDead;
 
 }Player_struct;
 
 Player_struct player[4];
+int countDead;
 
 void initPlayer();
 void updatePlayer();

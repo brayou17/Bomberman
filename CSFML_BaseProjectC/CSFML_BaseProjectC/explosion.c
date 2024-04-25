@@ -1,8 +1,12 @@
 #include "explosion.h"
 #include "player.h"
 #include "gamepadx.h"
+#include "bonus.h"
+#include "gamepad.h"
 
 #define GT_EXPLOSION STD_LIST_GETDATA(explosionList, Explosion_struct, x)
+#define GT_BONUS STD_LIST_GETDATA(bonusList, Bonus_struct, y)
+
 
 sfCircleShape* crl_expl;
 sfRectangleShape* rct_colExpl;
@@ -37,7 +41,7 @@ void updateExplosion()
 		{
 			if (sfFloatRect_intersects(&GT_EXPLOSION->colRect, &player[i].colRect, NULL) && !player[i].isTouched  && player[i].life != 0)
 			{
-				setVibration(i, 1.0, 1.0);
+				setVibration(i, 1.0f, 1.0f);
 				player[i].life--;
 				player[i].isTouched = sfTrue;
 			}
@@ -48,16 +52,35 @@ void updateExplosion()
 			if (GT_EXPLOSION->radius > 20.0f)
 			{
 				explosionList->erase(&explosionList, x);
-				for (int i = 0; i < 4; i++)
+				setVibration(0, 0.0f, 0.0f);
+				setVibration(1, 0.0f, 0.0f);
+				setVibration(2, 0.0f, 0.0f);
+				setVibration(3, 0.0f, 0.0f);
+				for (int i = 0; i < playernber; i++)
 				{
 					if (player[i].isTouched)
 						player[i].isTouched = sfFalse;
+					if (player[i].life <= 0)
+					{
+						if (!player[i].countDead)
+						{
+							player[i].countDead = sfTrue;
+							countDead++;
+						}
+						continue;
+					}
 				}
-				setVibration(0, 0.0, 0.0);
-				setVibration(1, 0.0, 0.0);
-				setVibration(2, 0.0, 0.0);
-				setVibration(3, 0.0, 0.0);
-			
+
+				break;
+			}
+
+			for (int y = 0; y < bonusList->size(bonusList); y++)
+			{
+				if (GT_BONUS->canBeDestroyed && GT_EXPLOSION->pos.x >= GT_BONUS->pos.x - 20.f && GT_EXPLOSION->pos.x <= GT_BONUS->pos.x + 20.f && GT_EXPLOSION->pos.y >= GT_BONUS->pos.y - 20.f && GT_EXPLOSION->pos.y <= GT_BONUS->pos.y + 20.f)
+				{
+					bonusList->erase(&bonusList, y);
+					break;
+				}
 			}
 	}
 }

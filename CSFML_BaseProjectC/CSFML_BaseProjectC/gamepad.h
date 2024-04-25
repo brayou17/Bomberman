@@ -41,7 +41,7 @@ struct gamepad
 	int Bouton[14];
 };
 gamepad Gamepad[8];
-
+int playernber;
 void GamepadDetection();
 void GamepadManager(int _joystickId, sfEvent event);
 int Gamepad_isButtonPressed(unsigned int _joystickId, gamepadPS4 _button);

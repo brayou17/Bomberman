@@ -3,6 +3,8 @@
 #include "gamepad.h"
 #include "viewManager.h"
 
+sfSprite* spr_backGround;
+
 sfFont* venture3D;
 
 sfText* Play;
@@ -16,6 +18,9 @@ int menuSelection;
 void initMenu(Window* _window)
 {
 	Texture_Onload(MENU);
+	spr_backGround = sfSprite_create();
+	sfSprite_setTexture(spr_backGround, GetTexture("menu"),sfTrue);
+
 
 	venture3D = sfFont_createFromFile("../Ressources/Fonts/3Dventure.ttf");
 
@@ -80,7 +85,7 @@ void updateMenu(Window* _window)
 	default:
 		break;
 	}
-
+	
 	for (int i = 0; i < 8; i++)
 	{
 		if (Gamepad_isButtonPressed(i, CROIX) && timer > 0.2f)
@@ -91,7 +96,7 @@ void updateMenu(Window* _window)
 				changeState(_window, GAME);
 				break;
 			case 1:
-				changeState(_window, EDITOR);
+				//changeState(_window, EDITOR);
 				break;
 			case 2:
 				toggleOptions();
@@ -160,6 +165,7 @@ void updateMenu(Window* _window)
 
 void displayMenu(Window* _window)
 {
+	sfRenderWindow_drawSprite(_window->renderWindow, spr_backGround, NULL);
 	sfRenderWindow_drawText(_window->renderWindow, Play, NULL);
 	sfRenderWindow_drawText(_window->renderWindow, Editor, NULL);
 	sfRenderWindow_drawText(_window->renderWindow, Options, NULL);

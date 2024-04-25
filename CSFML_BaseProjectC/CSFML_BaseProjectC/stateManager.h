@@ -23,11 +23,12 @@ typedef struct
 
 watcher w;
 
-static State state = GAME;
+static State state = MENU;
 
 static sfBool onePass = sfFalse;
 static sfBool isPaused = sfFalse;
 static sfBool isOption = sfFalse;
+static sfBool isEndGame = sfFalse;
 
 sfThread* loadingThread;
 sfSprite* spLoading;
@@ -40,3 +41,4 @@ void stateDeinit(Window* _window);
 void changeState(Window* _window, State _state);
 void togglePause();
 void toggleOptions();
+void toggleEndGame();

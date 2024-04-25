@@ -10,20 +10,22 @@
 #include "bombe.h"
 #include "explosion.h"
 #include "bonus.h"
+#include "hud.h"
 
 void initGame(Window* _window)
 {
 	Texture_Onload(GAME);
-
+	GamepadDetection();
+	playernber = 2;
 	initMap();
 	initPlayer();
 	initExplosion();
 	initBombe();
+	initHud();
 	initBonus();
 	SetViewPosition(mainView, vector2f(960.f, 540.f));
 	
 	
-	GamepadDetection();
 
 	
 
@@ -38,6 +40,7 @@ void updateGame(Window* _window)
 	updateBombe();
 	updateExplosion();
 	updateBonus();
+	updateHud();
 }
 
 void displayGame(Window* _window)
@@ -47,6 +50,7 @@ void displayGame(Window* _window)
 	displayExplosion(_window);
 	displayBonus(_window);
 	displayPlayer(_window);
+	displayHud(_window);
 
 }
 

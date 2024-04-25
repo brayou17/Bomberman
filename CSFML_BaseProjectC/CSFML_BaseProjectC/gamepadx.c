@@ -128,3 +128,54 @@ void setVibration(t_joyNum joyNum, float leftMotor, float rightMotor)
 
     XInputSetState(joyNum, &vib);
 }
+
+sfVector2f getSticksPos(t_joyNum joyNum, XPad stick)
+{
+    if (isConnected(joyNum))
+    {
+        XINPUT_STATE state;
+        ZeroMemory(&state, sizeof(XINPUT_STATE));
+
+        XInputGetState(joyNum, &state);
+        sfVector2f left;
+        sfVector2f right;
+
+
+        switch (stick)
+        {
+        case LEFT_THUMB:
+            // Verifie la "DEAD ZONE"
+            // Stick Gauche
+            if ((state.Gamepad.sThumbLX < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE &&
+                state.Gamepad.sThumbLX > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) &&
+                (state.Gamepad.sThumbLY < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE &&
+                    state.Gamepad.sThumbLY > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)) {
+
+                state.Gamepad.sThumbLX = 0;
+                state.Gamepad.sThumbLY = 0;
+
+            }
+            // Converti les valeurs dans le style SFML (-100..100)
+            left.x = (float)(state.Gamepad.sThumbLX / 327);
+            left.y = (float)(state.Gamepad.sThumbLY / 327);
+            return left;
+            break;
+        case RIGHT_THUMB:
+            // Stick Droit
+            if ((state.Gamepad.sThumbRX < XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE &&
+                state.Gamepad.sThumbRX > -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE) &&
+                (state.Gamepad.sThumbRY < XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE &&
+                    state.Gamepad.sThumbRY > -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE)) {
+
+                state.Gamepad.sThumbRX = 0;
+                state.Gamepad.sThumbRY = 0;
+
+            }
+            // Converti les valeurs dans le style SFML (-100..100)
+            right.x = (float)(state.Gamepad.sThumbRX / 327);
+            right.y = (float)(state.Gamepad.sThumbRY / 327);
+            return right;
+            break;
+        }
+    }
+}

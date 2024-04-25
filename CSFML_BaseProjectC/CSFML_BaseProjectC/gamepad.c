@@ -1,10 +1,10 @@
 #include "Gamepad.h"
-#define MAX_PLAYER 1
+#define MAX_PLAYER 4
 
 void GamepadDetection()
 {
 	sfJoystick_update();
-	int playernber = 0;
+	playernber = 0;
 	for (unsigned int i = 0; i < 8; i++)
 	{
 		if (playernber >= MAX_PLAYER) break;
@@ -14,8 +14,8 @@ void GamepadDetection()
 			if (joyid.productId == 654 && joyid.vendorId == 1118)
 			{
 				//player[playernber].idGamepad = i;
-				playernber++;
 			}
+				playernber++;
 		}
 		else
 		{

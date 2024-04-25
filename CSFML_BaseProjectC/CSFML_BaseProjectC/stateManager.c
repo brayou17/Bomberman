@@ -9,6 +9,8 @@
 #include "options.h"
 #include "viewManager.h"
 #include "editor.h"
+#include "endGame.h"
+#include "createParticles.h"
 
 void stateInit(Window* _window)
 {
@@ -53,6 +55,8 @@ void stateInit(Window* _window)
 			sfThread_launch(loadingThread);
 			initPause(_window);
 			initOptions(_window);
+			initEndGame();
+			initParticlesSystem();
 		}
 		if (state == EDITOR)
 		{
@@ -93,6 +97,10 @@ void stateUpdate(Window* _window)
 {
 	if (w.state)
 	{
+		if (sfKeyboard_isKeyPressed(sfKeySpace))
+		{
+			changeState(_window,GAME);
+		}
 		if (!isDialogBox)
 		{
 			if (state == INTRO)
@@ -116,7 +124,15 @@ void stateUpdate(Window* _window)
 					updatePause(_window);	
 				}	
 				else
-					updateGame(_window);
+				{
+					if (isEndGame)
+					{
+						updateParticlesSystem();
+						updateEndGame();
+					}
+					else
+						updateGame(_window);
+				}
 			}
 			else if (state == EDITOR)
 			{
@@ -179,6 +195,12 @@ void stateDisplay(Window* _window)
 		if (state == GAME)
 		{
 			displayGame(_window);
+			if (isEndGame)
+			{
+				displayEndGame1(_window);
+				displayParticlesSystem(_window);
+				displayEndGame2(_window);
+			}
 			if (isPaused)
 			{
 				displayPause(_window);
@@ -249,4 +271,9 @@ void togglePause()
 void toggleOptions()
 {
 	isOption = !isOption;
+}
+
+void toggleEndGame()
+{
+	isEndGame = !isEndGame;
 }
