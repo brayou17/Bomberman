@@ -6,6 +6,7 @@
 #include "bombe.h"
 #include "stateManager.h"
 #include "explosion.h"
+#include "endGame.h"
 
 #define SPEED_PLAYER 150.f
 #define GETLEFTS getSticksPos(i, LEFT_THUMB)
@@ -15,10 +16,17 @@ sfCircleShape* crl_player;
 sfVector2f playerPos;
 sfVector2f playerVel;
 
+
 sfRectangleShape* rct_colPlayer;
 
 void initPlayer()
 {
+	if (!firstLoad2)
+	{
+		defaultScore();
+		firstLoad2 = sfTrue;
+	}
+	readScore();
 	countDead = 0;
 	rct_colPlayer = sfRectangleShape_create();
 	for (int i = 0; i < playernber; i++)

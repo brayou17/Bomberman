@@ -17,6 +17,7 @@ void stateInit(Window* _window)
 	static sfBool firstload = sfFalse;
 	if (!firstload)
 	{
+		firstLoad2 = sfFalse;
 		OnLoad("../Ressources/ressources.load");
 		Texture_Onload(ALL);
 		spLoading = sfSprite_create();
@@ -128,7 +129,7 @@ void stateUpdate(Window* _window)
 					if (isEndGame)
 					{
 						updateParticlesSystem();
-						updateEndGame();
+						updateEndGame(_window);
 					}
 					else
 						updateGame(_window);

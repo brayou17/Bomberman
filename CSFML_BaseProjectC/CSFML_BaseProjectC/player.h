@@ -38,6 +38,8 @@ typedef struct {
 	sfBool isTouched;
 	sfBool countDead;
 
+	int score;
+
 }Player_struct;
 
 Player_struct player[4];
