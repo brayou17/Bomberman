@@ -11,10 +11,18 @@
 #include "explosion.h"
 #include "bonus.h"
 #include "hud.h"
+#include "soundManager.h"
+
 
 void initGame(Window* _window)
 {
 	Texture_Onload(GAME);
+	Sound_Onload(GAME);
+	stopSound("Mmenu");
+	stopSound("Mscore");
+	stopSound("Mfeu");
+	//playSound("Mgame",sfTrue);
+
 	GamepadDetection();
 	playernber = 2;
 	initMap();

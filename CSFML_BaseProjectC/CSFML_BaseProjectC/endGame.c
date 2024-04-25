@@ -4,6 +4,7 @@
 #include "gamepad.h"
 #include "gamepadx.h"
 #include "player.h"
+#include "soundManager.h"
 
 #define NBR_ELEM_GB 5
 
@@ -192,6 +193,10 @@ void displayEndGame2(Window* _window)
 	{
 		isOnePassedEG = sfTrue;
 		readScore();
+		stopSound("Mgame");
+		stopSound("Mmenu");
+		playSound("Mfeu", sfTrue);
+		playSound("Mscore", sfTrue);
 		for (int x = 0; x < playernber; x++)
 		{
 			if (player[x].life > 0)

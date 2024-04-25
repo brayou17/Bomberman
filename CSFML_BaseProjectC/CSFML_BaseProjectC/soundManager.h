@@ -11,7 +11,7 @@ void setVolume(Sound* _sound, float _volume);
 float getVolume(Sound* _sound);
 void setSoundVolume(float _volume);
 void setMusicVolume(float _volume);
-void playSound(char* _name);
+void playSound(char* _name, sfBool loop);
 void stopSound(char* _name);
 void RemoveWasteSound();
 float getSFXVolume();

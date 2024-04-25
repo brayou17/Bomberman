@@ -19,6 +19,8 @@ sfVector2f playerVel;
 
 sfRectangleShape* rct_colPlayer;
 
+float timer_pause;
+
 void initPlayer()
 {
 	if (!firstLoad2)
@@ -74,6 +76,7 @@ void initPlayer()
 	crl_player = sfCircleShape_create();
 	sfCircleShape_setRadius(crl_player, TAILLE_BLOCK / 3.f);
 	sfCircleShape_setOrigin(crl_player, vector2f(TAILLE_BLOCK / 3.f, TAILLE_BLOCK / 3.f));
+	timer_pause = 0.0f;
 }
 
 void updatePlayer()
@@ -85,8 +88,17 @@ void updatePlayer()
 		toggleEndGame();
 	}
 	float delta = getDeltaTime();
+
+	timer_pause += delta;
+
 	for (int i = 0; i < playernber; i++)
 	{
+		if (isButtonPressed(i, START) && timer_pause > 0.2f)
+		{
+			timer_pause = 0.0f;
+			togglePause();
+		}
+
 		if (player[i].life <= 0)
 			continue;
 		
