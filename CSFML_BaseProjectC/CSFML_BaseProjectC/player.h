@@ -25,12 +25,15 @@ typedef struct {
 
 	sfBool isUsingSpeed;
 	float time_speed;
+	int countspeed;
 
 	sfBool isUsingPushBombe;
 	float time_pushBombe;
+	int countPush;
 
 	sfBool isUsingEvil;
 	float time_evil;
+	int countEvil;
 
 	sfBool isTouched;
 	sfBool countDead;

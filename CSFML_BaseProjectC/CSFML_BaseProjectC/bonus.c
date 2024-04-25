@@ -53,14 +53,17 @@ void updateBonus()
 				case BONUS_SPEED:
 					player[i].time_speed = 0.0f;
 					player[i].isUsingSpeed = sfTrue;
+					player[i].countspeed++;
 					break;
 				case BONUS_PUSH_BOMBE:
 					player[i].time_pushBombe = 0.0f;
 					player[i].isUsingPushBombe = sfTrue;
+					player[i].countPush++;
 					break;
 				case BONUS_EVIL:
 					player[i].time_evil = 0.0f;
 					player[i].isUsingEvil = sfTrue;
+					player[i].countEvil++;
 					break;
 				}
 				bonusList->erase(&bonusList, y);

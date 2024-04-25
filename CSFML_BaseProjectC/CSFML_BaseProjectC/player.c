@@ -59,6 +59,9 @@ void initPlayer()
 		player[i].time_pushBombe = 0.0f;
 		player[i].time_speed = 0.0f;
 		player[i].countDead = sfFalse;
+		player[i].countEvil = 0;
+		player[i].countspeed = 0;
+		player[i].countPush = 0;
 	}
 	crl_player = sfCircleShape_create();
 	sfCircleShape_setRadius(crl_player, TAILLE_BLOCK / 3.f);
