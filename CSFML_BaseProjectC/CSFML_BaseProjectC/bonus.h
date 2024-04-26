@@ -22,7 +22,22 @@ typedef struct
 
 stdList* bonusList;
 
+/// <summary>
+/// This function init all elements of bonus
+/// </summary>
 void initBonus();
+/// <summary>
+/// This function create a bonus
+/// </summary>
+/// <param name="_pos">The wanted pos</param>
+/// <param name="_idBonus">The bonus' id</param>
 void addBonus(sfVector2f _pos, int _idBonus);
+/// <summary>
+/// This function update all elements of bonus
+/// </summary>
 void updateBonus();
+/// <summary>
+/// This function display all elements of bonus
+/// </summary>
+/// <param name="_window"></param>
 void displayBonus(Window* _window);

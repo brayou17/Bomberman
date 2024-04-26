@@ -163,7 +163,6 @@
     <ClCompile Include="bonus.c" />
     <ClCompile Include="createParticles.c" />
     <ClCompile Include="dialogBox.c" />
-    <ClCompile Include="editor.c" />
     <ClCompile Include="endGame.c" />
     <ClCompile Include="explosion.c" />
     <ClCompile Include="fontManager.c" />
@@ -187,12 +186,10 @@
     <ClCompile Include="windowManager.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\CSFML_DLL_Project\sfBaseDllProject\dirent.h" />
     <ClInclude Include="bombe.h" />
     <ClInclude Include="bonus.h" />
     <ClInclude Include="createParticles.h" />
     <ClInclude Include="dialogBox.h" />
-    <ClInclude Include="editor.h" />
     <ClInclude Include="endGame.h" />
     <ClInclude Include="explosion.h" />
     <ClInclude Include="fontManager.h" />

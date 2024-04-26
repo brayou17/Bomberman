@@ -8,7 +8,6 @@
 #include "dialogBox.h"
 #include "options.h"
 #include "viewManager.h"
-#include "editor.h"
 #include "endGame.h"
 #include "createParticles.h"
 
@@ -27,6 +26,7 @@ void stateInit(Window* _window)
 		sfSprite_setOrigin(spLoading, vector2f(64.0f, 64.0f));
 		sfSprite_setPosition(spLoading, vector2f(mainView->PosView.x, mainView->PosView.y));
 		sfSprite_setTextureRect(spLoading, AnimRect);
+		sfRenderWindow_setMouseCursorVisible(_window->renderWindow, sfFalse);
 
 		setSoundVolume(10.0f);
 		setMusicVolume(10.0f);
@@ -62,7 +62,7 @@ void stateInit(Window* _window)
 		}
 		if (state == EDITOR)
 		{
-			initEditor();
+
 		}
 		if (state == END)
 		{
@@ -138,7 +138,6 @@ void stateUpdate(Window* _window)
 			}
 			else if (state == EDITOR)
 			{
-				updateEditor(_window);
 			}
 			else if (state == END)
 			{
@@ -220,7 +219,6 @@ void stateDisplay(Window* _window)
 		}
 		else if (state == EDITOR)
 		{
-			displayEditor(_window);
 		}
 		if (state == END)
 		{
