@@ -2,6 +2,7 @@
 #include "explosion.h"
 #include "bonus.h"
 #include "bombe.h"
+#include "createParticles.h"
 
 sfRectangleShape* rct_backGround;
 sfRectangleShape* rct_Block;
@@ -257,6 +258,8 @@ void explosionBombe(sfVector2f _pos,int _numCase)
 	int right = 0;
 
 	addExplosion(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 2.f));
+	CreateParticles(vector2f(posExplosion.x * TAILLE_BLOCK + TAILLE_BLOCK / 2.f, posExplosion.y * TAILLE_BLOCK + TAILLE_BLOCK / 2.f), vector2f(3.f, 3.f), vector2f(3.0f, 3.0f), vector2f(0.5f, 0.5f), 0, 360, 0.f, 0.f, 100.f, 100.f, 3.0f, sfColor_fromRGBA(150, 0, 0, 255), sfColor_fromRGBA(150, 0, 0, 0), 1.5f, 2.f, 20, "nul", IntRect(0, 0, 0, 0), NULL, 0.0f, 0.1f, .1f);
+
 
 	for (int i = 1; i < _numCase+1; i++)
 	{

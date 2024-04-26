@@ -9,8 +9,19 @@ int main(int argc, char** argv)
 	FreeConsole();
 #endif // !DEBUG
 
+		if (strcmp(argv[1], "-debug") == 0)
+		{
+			printf("Debug Mode activated !\n");
+			isDebugMode = sfTrue;
+		}
+		else
+			isDebugMode = sfFalse;
+	
+
+	
+
 	sfVector2i defaultVideoMode = { 1920,1080 };
-	Window* mainWindow = windowSetup("CSFML la Base!!!", defaultVideoMode);
+	Window* mainWindow = windowSetup("BomberMan", defaultVideoMode);
 	initTools();
 
 	while (!IsDone(mainWindow))

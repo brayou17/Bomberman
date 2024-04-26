@@ -20,9 +20,27 @@ sfVector2f playerVel;
 sfRectangleShape* rct_colPlayer;
 
 float timer_pause;
+float timer_debug;
+
+sfShader* shaPlayer;
+sfRenderStates rsPlayer;
 
 void initPlayer()
 {
+
+	shaPlayer = sfShader_createFromFile(NULL,NULL,SHADER_PATH"Evil.frag");
+	if (shaPlayer == NULL)
+	{
+		printf("Shader not found\n");
+	}
+	else
+	{
+		rsPlayer.shader = shaPlayer;
+		rsPlayer.blendMode = sfBlendAlpha;
+		rsPlayer.transform = sfTransform_Identity;
+		rsPlayer.texture = NULL;
+	}
+
 	if (!firstLoad2)
 	{
 		defaultScore();
@@ -72,20 +90,28 @@ void initPlayer()
 		player[i].countEvil = 0;
 		player[i].countspeed = 0;
 		player[i].countPush = 0;
+		player[i].shaderTime = 0.0f;
 	}
 	crl_player = sfCircleShape_create();
 	sfCircleShape_setRadius(crl_player, TAILLE_BLOCK / 3.f);
 	sfCircleShape_setOrigin(crl_player, vector2f(TAILLE_BLOCK / 3.f, TAILLE_BLOCK / 3.f));
 	timer_pause = 0.0f;
+	timer_debug = 0.0f;
 }
 
-void updatePlayer()
+void updatePlayer(Window* _window)
 {
 	if (countDead == playernber-1)
 	{
 		bombeList->clear(&bombeList);
 		explosionList->clear(&explosionList);
 		toggleEndGame();
+	}
+	else if (countDead >= playernber)
+	{
+		bombeList->clear(&bombeList);
+		explosionList->clear(&explosionList);
+		changeState(_window, GAME);
 	}
 	float delta = getDeltaTime();
 
@@ -168,7 +194,62 @@ void updatePlayer()
 				player[i].isUsingPushBombe = sfFalse;
 			}
 		}
+
+		if (isDebugMode)
+		{
+			if (isButtonPressed(i, A) && isButtonPressed(i, LB) && isButtonPressed(i, RB))
+			{
+				player[i].life = 100;
+			}
+
+		}
+
 	}
+		if (isDebugMode)
+		{
+			timer_debug += delta;
+
+			if (timer_debug > 0.2f && sfKeyboard_isKeyPressed(sfKeyNumpad1))
+			{
+				for (int i = 0; i < playernber; i++)
+				{
+					player[i].isUsingSpeed = sfTrue;
+				}
+				timer_debug = 0.0f;
+			}
+			if (timer_debug > 0.2f && sfKeyboard_isKeyPressed(sfKeyNumpad2))
+			{
+				for (int i = 0; i < playernber; i++)
+				{
+					player[i].isUsingPushBombe = sfTrue;
+				}
+				timer_debug = 0.0f;
+			}
+			if (timer_debug > 0.2f && sfKeyboard_isKeyPressed(sfKeyNumpad0))
+			{
+				for (int i = 0; i < playernber; i++)
+				{
+					player[i].isUsingEvil = sfTrue;
+				}
+				timer_debug = 0.0f;
+			}
+			if (timer_debug > 0.2f && sfKeyboard_isKeyPressed(sfKeyNumpad4))
+			{
+				for (int i = 0; i < playernber; i++)
+				{
+					player[i].numOfBombe++;
+				}
+				timer_debug = 0.0f;
+			}
+			if (timer_debug > 0.2f && sfKeyboard_isKeyPressed(sfKeyNumpad5))
+			{
+				for (int i = 0; i < playernber; i++)
+				{
+					player[i].numCaseBombe++;
+				}
+				timer_debug = 0.0f;
+			}
+		}
 }
 
 void displayPlayer(Window* _window)
@@ -182,7 +263,15 @@ void displayPlayer(Window* _window)
 		player[i].colRect = sfCircleShape_getGlobalBounds(crl_player);
 		//sfRectangleShape_setPosition(rct_colPlayer,vector2f(player[i].colRect.left, player[i].colRect.top) );
 		//sfRectangleShape_setSize(rct_colPlayer, vector2f(player[i].colRect.width, player[i].colRect.height));
-		sfRenderWindow_drawCircleShape(_window->renderWindow, crl_player, NULL);
+		if(!player[i].isUsingEvil)
+			sfRenderWindow_drawCircleShape(_window->renderWindow, crl_player, NULL);
+		else
+		{
+			player[i].shaderTime += getDeltaTime();
+			sfShader_setFloatUniform(shaPlayer, "u_Time", player[i].shaderTime);
+			sfRenderWindow_drawCircleShape(_window->renderWindow, crl_player, &rsPlayer);
+		}
+
 		//sfRenderWindow_drawRectangleShape(_window->renderWindow, rct_colPlayer, NULL);
 	}
 

@@ -21,10 +21,9 @@ void initGame(Window* _window)
 	stopSound("Mmenu");
 	stopSound("Mscore");
 	stopSound("Mfeu");
-	//playSound("Mgame",sfTrue);
+	playSound("Mgame",sfTrue);
 
 	GamepadDetection();
-	playernber = 2;
 	initMap();
 	initPlayer();
 	initExplosion();
@@ -44,7 +43,7 @@ void initGame(Window* _window)
 void updateGame(Window* _window)
 {
 	updateMap();
-	updatePlayer();
+	updatePlayer(_window);
 	updateBombe();
 	updateExplosion();
 	updateBonus();

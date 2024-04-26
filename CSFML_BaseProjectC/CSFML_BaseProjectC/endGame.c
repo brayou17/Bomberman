@@ -225,7 +225,7 @@ void displayEndGame2(Window* _window)
 			case EG_NBR_BOMBE:
 				Gb[i].pos = vector2f(BG_pos.x + 200.f, BG_pos.y + 200.f);
 				sfText_setCharacterSize(txt_endGame, 30);
-				sprintf(bufferGb, "Bombes placed %d", player[playerWon].numBombePlaced);
+				sprintf(bufferGb, "Bombs placed %d", player[playerWon].numBombePlaced);
 				Gb[i].string = bufferGb;
 				break;
 			case EG_NBR_SPEED:

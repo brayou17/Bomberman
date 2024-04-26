@@ -98,7 +98,6 @@ void initHud()
 			break;
 		case NBR_BOMBE4:
 			HudText[x].pos = vector2f(HugRec[3].pos.x + 50.f, HugRec[3].pos.y + 80.f);
-			HudText[x].color = sfWhite;
 
 			break;
 		case NBR_BOMBE_BLOC1:
@@ -115,27 +114,23 @@ void initHud()
 			break;
 		case NBR_BOMBE_BLOC4:
 			HudText[x].pos = vector2f(HugRec[0].pos.x + 250.f, HugRec[3].pos.y + 80.f);
-			HudText[x].color = sfWhite;
 
 			break;
 		case PLAYER1:
 			HudText[x].pos = vector2f(HugRec[0].pos.x + 20.f , HugRec[0].pos.y + 20.f);
-			HudText[x].color = player[3].color;
+			HudText[x].color = sfBlack;
 
 			break;
 		case PLAYER2:
 			HudText[x].pos = vector2f(HugRec[0].pos.x + 20.f, HugRec[1].pos.y + 20.f);
-			HudText[x].color = player[0].color;
 
 			break;
 		case PLAYER3:
 			HudText[x].pos = vector2f(HugRec[0].pos.x + 20.f, HugRec[2].pos.y + 20.f);
-			HudText[x].color = player[0].color;
 
 			break;
 		case PLAYER4:
 			HudText[x].pos = vector2f(HugRec[0].pos.x + 20.f, HugRec[3].pos.y + 20.f);
-			HudText[x].color = sfWhite;
 
 			break;
 		case CAN_MOVE1:
@@ -144,15 +139,12 @@ void initHud()
 			break;
 		case CAN_MOVE2:
 			HudText[x].pos = vector2f(HugRec[0].pos.x + 50.f, HugRec[1].pos.y + 120.f);
-			HudText[x].color = sfWhite;
 			break;
 		case CAN_MOVE3:
 			HudText[x].pos = vector2f(HugRec[0].pos.x + 50.f, HugRec[2].pos.y + 120.f);
-			HudText[x].color = sfWhite;
 			break;
 		case  CAN_MOVE4:
 			HudText[x].pos = vector2f(HugRec[0].pos.x + 50.f, HugRec[3].pos.y + 120.f);
-			HudText[x].color = sfWhite;
 			break;
 		case SPEED1:
 			HudText[x].pos = vector2f(HugRec[0].pos.x + 250.f, HugRec[0].pos.y + 120.f);
@@ -160,15 +152,12 @@ void initHud()
 			break;
 		case SPEED2:
 			HudText[x].pos = vector2f(HugRec[0].pos.x + 250.f, HugRec[1].pos.y + 120.f);
-			HudText[x].color = sfWhite;
 			break;
 		case SPEED3:
 			HudText[x].pos = vector2f(HugRec[0].pos.x + 250.f, HugRec[2].pos.y + 120.f);
-			HudText[x].color = sfWhite;
 			break;
 		case SPEED4:
 			HudText[x].pos = vector2f(HugRec[0].pos.x + 250.f, HugRec[3].pos.y + 120.f);
-			HudText[x].color = sfWhite;
 			break;
 		}
 	}
@@ -199,21 +188,21 @@ void displayHud(Window* _window)
 		switch (x)
 		{
 		case NBR_BOMBE1:
-			sprintf(buffer, "BOMBES %d", player[0].numOfBombe);
+			sprintf(buffer, "BOMBS %d", player[0].numOfBombe);
 			HudText[x].string = buffer;
 			break;
 		case NBR_BOMBE2:
-			sprintf(buffer, "BOMBES %d", player[1].numOfBombe);
+			sprintf(buffer, "BOMBS %d", player[1].numOfBombe);
 			HudText[x].string = buffer;
 
 			break;
 		case NBR_BOMBE3:
-			sprintf(buffer, "BOMBES %d", player[2].numOfBombe);
+			sprintf(buffer, "BOMBS %d", player[2].numOfBombe);
 			HudText[x].string = buffer;
 
 			break;
 		case NBR_BOMBE4:
-			sprintf(buffer, "BOMBES %d", player[3].numOfBombe);
+			sprintf(buffer, "BOMBS %d", player[3].numOfBombe);
 			HudText[x].string = buffer;
 
 			break;

@@ -39,6 +39,7 @@ typedef struct {
 	sfBool countDead;
 
 	int score;
+	float shaderTime;
 
 }Player_struct;
 
@@ -46,5 +47,5 @@ Player_struct player[4];
 int countDead;
 
 void initPlayer();
-void updatePlayer();
+void updatePlayer(Window* _window);
 void displayPlayer(Window* _window);;

@@ -127,9 +127,9 @@ void stateUpdate(Window* _window)
 				}	
 				else
 				{
+					updateParticlesSystem();
 					if (isEndGame)
 					{
-						updateParticlesSystem();
 						updateEndGame(_window);
 					}
 					else
@@ -197,6 +197,8 @@ void stateDisplay(Window* _window)
 		if (state == GAME)
 		{
 			displayGame(_window);
+			if(!isEndGame)
+				displayParticlesSystem(_window);
 			if (isEndGame)
 			{
 				displayEndGame1(_window);

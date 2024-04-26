@@ -13,6 +13,7 @@
 #define FONT_PATH "..\\Ressources\\Fonts\\"
 #define MAP_PATH "..\\Ressources\\Maps\\"
 #define TILESET_PATH "..\\Ressources\\Tilesets\\"
+#define SHADER_PATH "..\\Ressources\\Shaders\\"
 
 typedef struct vector4f vector4f;
 struct vector4f

@@ -214,6 +214,9 @@
     <ClInclude Include="viewManager.h" />
     <ClInclude Include="windowManager.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Ressources\Shaders\Evil.frag" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

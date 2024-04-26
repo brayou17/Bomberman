@@ -14,6 +14,8 @@ typedef struct
 	sfEvent event;
 }Window;
 
+sfBool isDebugMode;
+
 // Prototypes
 sfBool IsDone(Window* This);
 sfBool IsFullscreen(Window* This);

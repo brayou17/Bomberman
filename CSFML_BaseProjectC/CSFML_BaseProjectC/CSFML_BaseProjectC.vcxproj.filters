@@ -192,4 +192,9 @@
       <Filter>Fichiers d%27en-tête\ENGINE</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Ressources\Shaders\Evil.frag">
+      <Filter>Fichiers sources\GAME</Filter>
+    </None>
+  </ItemGroup>
 </Project>
