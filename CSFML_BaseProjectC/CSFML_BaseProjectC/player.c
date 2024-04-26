@@ -188,7 +188,7 @@ void updatePlayer(Window* _window)
 		if (player[i].isUsingPushBombe)
 		{
 			player[i].time_pushBombe += delta;
-			if (player[i].time_pushBombe > 50.f)
+			if (player[i].time_pushBombe > 10.f)
 			{
 				player[i].time_pushBombe = 0.0f;
 				player[i].isUsingPushBombe = sfFalse;
