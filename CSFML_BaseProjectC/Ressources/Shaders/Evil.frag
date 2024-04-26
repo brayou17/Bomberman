@@ -11,5 +11,5 @@ void main()
     
     vec3 color = vec3(0.0,cos(u_Time * 2.5)*0.5+0.5,0.0);
 
-    gl_FragColor = vec4(color,cos(u_Time * 2.5)*0.5 +0.5);
+    gl_FragColor = vec4(color,0.8);
 }

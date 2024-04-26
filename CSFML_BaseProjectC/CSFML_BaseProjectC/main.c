@@ -9,14 +9,16 @@ int main(int argc, char** argv)
 	FreeConsole();
 #endif // !DEBUG
 
-		if (strcmp(argv[1], "-debug") == 0)
+	for (int i = 0; i < argc; i++)
+	{
+		if (strcmp(argv[i], "-debug") == 0)
 		{
 			printf("Debug Mode activated !\n");
 			isDebugMode = sfTrue;
 		}
 		else
 			isDebugMode = sfFalse;
-	
+	}
 
 	
 

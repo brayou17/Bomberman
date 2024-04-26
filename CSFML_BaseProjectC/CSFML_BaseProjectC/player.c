@@ -58,7 +58,7 @@ void initPlayer()
 			player[i].color = sfColor_fromRGBA(255, 255, 255, 255);
 			break;
 		case 1:
-			player[i].pos = vector2f(TAILLE_MAPX * TAILLE_BLOCK - TAILLE_BLOCK * 2 + TAILLE_BLOCK / 2.f, TAILLE_BLOCK + TAILLE_BLOCK / 2.f);
+			player[i].pos = vector2f(TAILLE_MAPX * TAILLE_BLOCK - TAILLE_BLOCK * 2 + TAILLE_BLOCK / 2.f, TAILLE_MAPY * TAILLE_BLOCK - TAILLE_BLOCK * 2 + TAILLE_BLOCK / 2.f);
 			player[i].color = sfColor_fromRGBA(0, 255, 255, 255);
 			break;
 		case 2:
@@ -66,7 +66,7 @@ void initPlayer()
 			player[i].color = sfColor_fromRGBA(255, 127, 0, 255);
 			break;
 		case 3:
-			player[i].pos = vector2f(TAILLE_MAPX * TAILLE_BLOCK - TAILLE_BLOCK*2 + TAILLE_BLOCK / 2.f, TAILLE_MAPY * TAILLE_BLOCK - TAILLE_BLOCK * 2 + TAILLE_BLOCK / 2.f);
+			player[i].pos = vector2f(TAILLE_MAPX * TAILLE_BLOCK - TAILLE_BLOCK * 2 + TAILLE_BLOCK / 2.f, TAILLE_BLOCK + TAILLE_BLOCK / 2.f);
 			player[i].color = sfColor_fromRGBA(0, 0, 0, 255);
 			break;
 		}

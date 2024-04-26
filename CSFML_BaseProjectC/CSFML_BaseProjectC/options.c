@@ -2,6 +2,10 @@
 #include "soundManager.h"
 #include "stateManager.h"
 #include "viewManager.h"
+#include "gamepad.h"
+#include "gamepadx.h"
+
+#define GETLEFTS getSticksPos(0, LEFT_THUMB)
 
 sfRectangleShape* backgroundOpt;
 sfRectangleShape* sfxVolumeBar;
@@ -95,26 +99,26 @@ void updateOptions(Window* _window)
 	static float timer = 0.0f;
 	timer += getDeltaTime();
 
-	if (sfKeyboard_isKeyPressed(sfKeyEscape) && timer > 0.2f)
+	if ((isButtonPressed(0, B) || sfKeyboard_isKeyPressed(sfKeyEscape)) && timer > 0.2f)
 	{
 		toggleOptions();
 		timer = 0.0f;
 	}
-	if (sfKeyboard_isKeyPressed(sfKeyDown) && timer > 0.2f)
+	if (((GETLEFTS.y < -50 || isButtonPressed(0, DPAD_DOWN)) || sfKeyboard_isKeyPressed(sfKeyDown)) && timer > 0.2f)
 	{
 		optionSelect++;
 		if (optionSelect > 3)
 			optionSelect = 0;
 		timer = 0.0f;
 	}
-	if (sfKeyboard_isKeyPressed(sfKeyUp) && timer > 0.2f)
+	if (((GETLEFTS.y > 50 || isButtonPressed(0, DPAD_UP)) || sfKeyboard_isKeyPressed(sfKeyUp)) && timer > 0.2f)
 	{
 		optionSelect--;
 		if (optionSelect < 0)
 			optionSelect = 3;
 		timer = 0.0f;
 	}
-	if (sfKeyboard_isKeyPressed(sfKeyEnter) && timer > 0.2f)
+	if ((isButtonPressed(0, A)  ||  sfKeyboard_isKeyPressed(sfKeyEnter)) && timer > 0.2f)
 	{
 		if (optionSelect == 0)
 		{
@@ -126,7 +130,7 @@ void updateOptions(Window* _window)
 		}
 		timer = 0.0f;
 	}
-	if (sfKeyboard_isKeyPressed(sfKeyRight) && timer > 0.1f)
+	if (((GETLEFTS.x > 50 || isButtonPressed(0, DPAD_RIGHT)) || sfKeyboard_isKeyPressed(sfKeyRight)) && timer > 0.1f)
 	{
 		if (optionSelect == 1)
 		{
@@ -140,7 +144,7 @@ void updateOptions(Window* _window)
 		}
 		timer = 0.0f;
 	}
-	if (sfKeyboard_isKeyPressed(sfKeyLeft) && timer > 0.1f)
+	if (((GETLEFTS.x < -50 || isButtonPressed(0, DPAD_LEFT)) || sfKeyboard_isKeyPressed(sfKeyLeft)) && timer > 0.1f)
 	{
 		if (optionSelect == 1)
 		{

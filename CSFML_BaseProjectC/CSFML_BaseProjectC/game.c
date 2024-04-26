@@ -24,6 +24,7 @@ void initGame(Window* _window)
 	playSound("Mgame",sfTrue);
 
 	GamepadDetection();
+	//playernber = 4;
 	initMap();
 	initPlayer();
 	initExplosion();
@@ -47,7 +48,7 @@ void updateGame(Window* _window)
 	updateBombe();
 	updateExplosion();
 	updateBonus();
-	updateHud();
+	updateHud(_window);
 }
 
 void displayGame(Window* _window)
