@@ -8,6 +8,8 @@
 sfRectangleShape* rct_hud;
 sfText* txt_hud;
 
+sfBool isDraw;
+
 typedef enum
 {
 	BG_PLAYER1,
@@ -53,8 +55,16 @@ HudRec_struct HugRec[4];
 HudRec_struct HudText[NBR_ELEMENT_HUD];
 char buffer[50];
 
+int HUDminutes;
+float HUDsecondes;
+float timer_draw;
+
 void initHud()
 {
+	HUDminutes = 1;
+	HUDsecondes = 59.0f;
+	isDraw = sfFalse;
+	timer_draw = 0.0f;
 	rct_hud = sfRectangleShape_create();
 	for (int i = 0; i < 4; i++)
 	{
@@ -165,9 +175,25 @@ void initHud()
 	sfText_setFont(txt_hud, getDefaultFont());
 }
 
-void updateHud()
+void updateHud(Window* _window)
 {
-
+	if(!isDraw)
+		HUDsecondes -=getDeltaTime();
+	if (HUDminutes == 0 && HUDsecondes < 0.0f)
+	{
+		isDraw = sfTrue;
+		timer_draw += getDeltaTime();
+		if(timer_draw > 2.f)
+			changeState(_window, GAME);
+	}
+	else
+	{
+		if (HUDsecondes < 0.0f)
+		{
+			HUDminutes--;
+			HUDsecondes = 59.f;
+		}
+	}
 }
 
 void displayHud(Window* _window)
@@ -288,6 +314,18 @@ void displayHud(Window* _window)
 		sfText_setFillColor(txt_hud, HudText[x].color);
 		sfText_setCharacterSize(txt_hud, 30);
 
+		sfRenderWindow_drawText(_window->renderWindow, txt_hud, NULL);
+	}
+
+	sprintf(buffer, "Time remaining %d : %.0f", HUDminutes, HUDsecondes);
+	sfText_setString(txt_hud, buffer);
+	sfText_setPosition(txt_hud, vector2f(200.f, 900.f));
+	sfRenderWindow_drawText(_window->renderWindow, txt_hud, NULL);
+
+	if (isDraw)
+	{
+		sfText_setString(txt_hud, "DRAW !!!");
+		sfText_setPosition(txt_hud, vector2f(200.f, 1000.f));
 		sfRenderWindow_drawText(_window->renderWindow, txt_hud, NULL);
 	}
 }

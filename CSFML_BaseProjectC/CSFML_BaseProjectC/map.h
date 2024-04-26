@@ -27,5 +27,18 @@ Map_struct mapTop[TAILLE_MAPY][TAILLE_MAPX];
 void initMap();
 void updateMap();
 void displayMap(Window* _window);
+/// <summary>
+/// This function checks the collisions with the player
+/// </summary>
+/// <param name="_sprite">The FLoatRect of the sprite</param>
+/// <param name="_direction">The direction</param>
+/// <param name="_vitesse">The speed</param>
+/// <param name="idControl">The id of thhe player</param>
+/// <returns>If there's a collision</returns>
 sfBool collision(sfFloatRect _sprite, Direction _direction, sfVector2f _vitesse, int idControl);
+/// <summary>
+/// This function create an explosion
+/// </summary>
+/// <param name="_pos">The wanted position</param>
+/// <param name="_numCase">The number of case</param>
 void explosionBombe(sfVector2f _pos, int _numCase);

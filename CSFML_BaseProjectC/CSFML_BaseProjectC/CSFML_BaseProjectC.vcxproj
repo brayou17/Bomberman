@@ -146,7 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\CSFML\CSFML-2.5.1-x64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CSFML\CSFML-2.5.1-x64\include;..\CSTL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -154,8 +154,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\CSFML\CSFML-2.5.1-x64\lib\msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>csfml-audio.lib;csfml-graphics.lib;csfml-network.lib;csfml-system.lib;csfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\CSFML\CSFML-2.5.1-x64\lib\msvc;..\CSTL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>csfml-audio.lib;csfml-graphics.lib;csfml-network.lib;csfml-system.lib;csfml-window.lib;CSTL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -163,7 +163,6 @@
     <ClCompile Include="bonus.c" />
     <ClCompile Include="createParticles.c" />
     <ClCompile Include="dialogBox.c" />
-    <ClCompile Include="editor.c" />
     <ClCompile Include="endGame.c" />
     <ClCompile Include="explosion.c" />
     <ClCompile Include="fontManager.c" />
@@ -187,12 +186,10 @@
     <ClCompile Include="windowManager.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\CSFML_DLL_Project\sfBaseDllProject\dirent.h" />
     <ClInclude Include="bombe.h" />
     <ClInclude Include="bonus.h" />
     <ClInclude Include="createParticles.h" />
     <ClInclude Include="dialogBox.h" />
-    <ClInclude Include="editor.h" />
     <ClInclude Include="endGame.h" />
     <ClInclude Include="explosion.h" />
     <ClInclude Include="fontManager.h" />

@@ -2,6 +2,7 @@
 #include "stateManager.h"
 #include "viewManager.h"
 #include "gamepad.h"
+#include "gamepadx.h"
 #include "dialogBox.h"
 
 sfRectangleShape* rshape;
@@ -74,11 +75,15 @@ void updatePause(Window* _window)
 				pauseSelect = 0;
 			timer = 0.0f;
 		}
-		if (Gamepad_isButtonPressed(i, CROIX) && timer > 0.2f)
+		if (isButtonPressed(i, A) && timer > 0.2f)
 		{
 			if (pauseSelect == 0)
 			{
 				togglePause();
+			}
+			else if (pauseSelect == 1)
+			{
+				toggleOptions();
 			}
 			else if (pauseSelect == 2)
 			{

@@ -84,9 +84,6 @@
     <ClCompile Include="map.c">
       <Filter>Fichiers sources\GAME</Filter>
     </ClCompile>
-    <ClCompile Include="editor.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="player.c">
       <Filter>Fichiers sources\GAME</Filter>
     </ClCompile>
@@ -155,17 +152,11 @@
     <ClInclude Include="game.h">
       <Filter>Fichiers d%27en-tête\GAME</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\CSFML_DLL_Project\sfBaseDllProject\dirent.h">
-      <Filter>Fichiers d%27en-tête\ENGINE</Filter>
-    </ClInclude>
     <ClInclude Include="fontManager.h">
       <Filter>Fichiers d%27en-tête\ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="map.h">
       <Filter>Fichiers d%27en-tête\GAME</Filter>
-    </ClInclude>
-    <ClInclude Include="editor.h">
-      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
       <Filter>Fichiers d%27en-tête\GAME</Filter>
@@ -185,11 +176,11 @@
     <ClInclude Include="endGame.h">
       <Filter>Fichiers d%27en-tête\GAME</Filter>
     </ClInclude>
-    <ClInclude Include="hud.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="createParticles.h">
       <Filter>Fichiers d%27en-tête\ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="hud.h">
+      <Filter>Fichiers d%27en-tête\GAME</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

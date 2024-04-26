@@ -142,7 +142,7 @@ void updateEndGame(Window* _window)
 	timer_EG += delta;
 	for (int i = 0; i < playernber; i++)
 	{
-		if (isButtonPressed(i, A) && timer_EG > 0.2f)
+		if (isButtonPressed(i, A) && timer_EG > 0.5f)
 		{
 			if (!Gb2[0].canDisplay)
 			{
